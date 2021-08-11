@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import os 
 
 print("------------------------------")
 print("Ultimate Core Bot is starting.")
@@ -10,7 +11,7 @@ load_dotenv()
 token = os.getenv("TOKEN")
 prefix = os.getenv("PREFIX")
 member = os.getenv("MEMBER_ROLE")
-member = os.getenv("MODERATOR_ROLE")
+moderator = os.getenv("MODERATOR_ROLE")
 print("Loaded ENV file.")
 
 client = commands.Bot(command_prefix=prefix)

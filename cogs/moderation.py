@@ -1,9 +1,13 @@
 from discord.ext import commands
+import os 
+from dotenv import load_dotenv
 
 class Moderation(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
+        member = os.getenv("MEMBER_ROLE")
+        moderator = os.getenv("MODERATOR_ROLE")
 
 
     @commands.command(aliases=['Lock', 'LOCK'])
@@ -31,6 +35,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount: int):
         await ctx.message.delete()
+        await ctx.send("Clearing messages, this may take a while..", delete_after=10)
         await ctx.channel.purge(limit=amount)
         await ctx.send(f'{amount} messages has been cleared', delete_after=5)
 
@@ -57,9 +62,13 @@ class Moderation(commands.Cog):
                 embed = discord.Embed(title='Slowmode turned off')
                 await ctx.send(embed=embed)
                 await ctx.channel.edit(slowmode_delay=0)
+            if time == "off":
+                embed = discord.Embed(title='Slowmode turned off')
+                await ctx.send(embed=embed)
+                await ctx.channel.edit(slowmode_delay=0)
             elif time > 21600:
                 embed = discord.Embed(
-                    title='You cannot have a slowmode above 6hrs.')
+                    title='You cannot have a slowmode above 6 hours..')
                 await ctx.send(embed=embed)
             else:
                 await ctx.channel.edit(slowmode_delay=time)
@@ -74,37 +83,6 @@ class Moderation(commands.Cog):
         await member.unban(reason=reason)
         embed = discord.Embed(title=f'Successfully softbanned {member}')
         await ctx.send(embed=embed)
-
-    @commands.command(aliases=['Tempban', 'TempBan', 'TEMPBAN'])
-    async def tempban(self, ctx, member: discord.Member, time, *, reason='No Reason Provided'):
-        with open('guild.json', 'r') as f:
-            channels = json.load(f)
-        indicator = time[-1]
-        if indicator == "m" or indicator == "s" or indicator == 'h' or indicator == 'd':
-            pass
-        else:
-            await ctx.send('Incorrect Time Format.')
-        embed = discord.Embed(
-            title=f'{member} has been temp banned for {time}.')
-        await ctx.send(embed=embed)
-        await member.ban(reason=reason)
-        chanid = channels[str(ctx.guild.id)]['admin'][0]['adid']
-        channel = self.bot.get_channel(chanid)
-        embed = discord.Embed(title='Member Tempbanned!',
-                              color=discord.Colour.red())
-        embed.add_field(
-            name=f'{member} was tempbanned({time}) from {ctx.guild.name} for: ', value=f'{reason}')
-        await channel.send(embed=embed)
-        time = time[:-1]
-        if indicator == 'm':
-            await asyncio.sleep(int(time) * 60)
-        elif indicator == 'h':
-            await asyncio.sleep(int(time) * 3600)
-        elif indicator == 's':
-            await asyncio.sleep(int(time))
-        elif indicator == 'd':
-            await asyncio.sleep(int(time) * 86400)
-        await member.unban(reason='Timer has expired.')
 
     @commands.command(aliases=['Ban', 'BAN'])
     @commands.has_permissions(ban_members=True)
@@ -148,7 +126,7 @@ class Moderation(commands.Cog):
         em = discord.Embed(title=f'You kicked {member}')
         await ctx.send(embed=em)
         embed = discord.Embed(
-            title='You have been kicked from The Coding Community', description=f'Kicked by {member}')
+            title=f'You have been kicked from {ctx.guild.name}', description=f'Kicked by {member}')
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
