@@ -6,5 +6,6 @@ class Fun(commands.Cog):
         self.bot = client
 
 
+
 def setup(client):
     client.add_cog(Fun(client))
