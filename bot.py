@@ -26,5 +26,10 @@ async def on_ready():
 	print("Ultimate Core Bot is ready.")
 	print("---------------------------")
 
+for filename in os.listdir('./cogs'):
+	print("Loading cogs")
+    if filename.endswith(".py"):
+        client.load_extension(f'cogs.{filename[:-3]}')
+        print(f"\"{filename[:-3]}\" cog has been loaded.")
 
 client.run(token)
