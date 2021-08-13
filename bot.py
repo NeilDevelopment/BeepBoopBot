@@ -3,9 +3,9 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os 
 
-print("------------------------------")
-print("Ultimate Core Bot is starting.")
-print("------------------------------")
+print("--------------------------")
+print("Beep Boop Bot is starting.")
+print("--------------------------")
 print("Loading ENV file.")
 load_dotenv()
 token = os.getenv("TOKEN")
@@ -15,6 +15,7 @@ moderator = os.getenv("MODERATOR_ROLE")
 print("Loaded ENV file.")
 
 client = commands.Bot(command_prefix=prefix)
+client.remove_command('help')
 
 @client.event
 async def on_connect():
@@ -22,14 +23,14 @@ async def on_connect():
 
 @client.event
 async def on_ready():
-	print("---------------------------")
-	print("Ultimate Core Bot is ready.")
-	print("---------------------------")
+	print("-----------------------")
+	print("Beep Boop Bot is ready.")
+	print("-----------------------")
 
+print("Loading cogs")
 for filename in os.listdir('./cogs'):
-	print("Loading cogs")
-    if filename.endswith(".py"):
-        client.load_extension(f'cogs.{filename[:-3]}')
-        print(f"\"{filename[:-3]}\" cog has been loaded.")
+	if filename.endswith(".py"):
+		client.load_extension(f'cogs.{filename[:-3]}')
+		print(f"\"{filename[:-3]}\" cog has been loaded.")
 
 client.run(token)

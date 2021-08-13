@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 import os 
 import random
@@ -27,7 +28,6 @@ class Giveaway(commands.Cog):
         return val * time_dict[unit]
 
     @commands.command()
-    @commands.has_role()
     async def giveaway(ctx):
         await ctx.send("Let's start with this giveaway! Answer these questions within 15 seconds!")
 
