@@ -78,5 +78,20 @@ class Fun(commands.Cog):
         embed.set_image(url=userAvatarUrl)
         await ctx.send(embed=embed)```
 
+    @commands.command(aliases=['whois', 'Whois', 'WHOis', 'WHOIS'])
+    async def userinfo(self,ctx, member: discord.Member):
+        roles = [role for role in member.roles]
+        embed = discord.Embed(color=member.color, timestamp=datetime.datetime.utcnow())
+        embed.set_author(name=f"{member}", icon_url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.add_field(name="Joined at:", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p"))
+        embed.add_field(name='Registered at:', value=member.created_at.strftime('%a, %#d %B %Y, %I:%M %p'))
+        embed.add_field(name='Bot?', value=f'{member.bot}')
+        embed.add_field(name='Status?', value=f'{member.status}')
+        embed.add_field(name='Top Role?', value=f'{member.top_role}')
+        embed.add_field(name=f"Roles ({len(roles)})", value=" ".join([role.mention for role in roles[:1]]))
+        embed.set_footer(icon_url=member.avatar_url, text=f'Requested By: {ctx.author.name}')
+        await ctx.send(embed=embed
+
 def setup(client):
     client.add_cog(Fun(client))
