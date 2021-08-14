@@ -12,7 +12,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Start bot (This is an example.)
+1. Start bot 
 2. Run command "example @ItsNeil example reason" (This is an example.)
 
 **Expected behavior**
