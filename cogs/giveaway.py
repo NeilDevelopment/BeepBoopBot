@@ -10,25 +10,24 @@ class Giveaway(commands.Cog):
         self.bot = client
         admin_role = os.getenv("ADMIN_ROLE")
 
-    def convert(time):
-        pos = ["s","m","h","d"]
-
-        time_dict = {"s" : 1, "m" : 60, "h" : 3600 , "d" : 3600*24}
-
-        unit = time[-1]
-
-        if unit not in pos:
-            return -1
-        try:
-            val = int(time[:-1])
-        except:
-            return -2
-
-
-        return val * time_dict[unit]
-
     @commands.command()
-    async def giveaway(ctx):
+    async def giveaway(self, ctx):
+        def convert(time):
+            pos = ["s","m","h","d"]
+
+            time_dict = {"s" : 1, "m" : 60, "h" : 3600 , "d" : 3600*24}
+
+            unit = time[-1]
+
+            if unit not in pos:
+                return -1
+            try:
+                val = int(time[:-1])
+            except:
+                return -2
+
+
+            return val * time_dict[unit]
         await ctx.send("Let's start with this giveaway! Answer these questions within 15 seconds!")
 
         questions = ["Which channel should it be hosted in?", 
@@ -44,7 +43,7 @@ class Giveaway(commands.Cog):
             await ctx.send(i)
 
             try:
-                msg = await client.wait_for('message', timeout=15.0, check=check)
+                msg = await self.bot.wait_for('message', timeout=15.0, check=check)
             except asyncio.TimeoutError:
                 await ctx.send('You didn\'t answer in time, please be quicker next time!')
                 return
@@ -56,7 +55,7 @@ class Giveaway(commands.Cog):
             await ctx.send(f"You didn't mention a channel properly. Do it like this {ctx.channel.mention} next time.")
             return
 
-        channel = client.get_channel(c_id)
+        channel = self.bot.get_channel(c_id)
 
         time = convert(answers[1])
         if time == -1:
@@ -71,7 +70,7 @@ class Giveaway(commands.Cog):
         await ctx.send(f"The Giveaway will be in {channel.mention} and will last {answers[1]}!")
 
 
-        embed = discord.Embed(title = "Giveaway!", description = f"{prize}", color = ctx.author.color)
+        embed = discord.Embed(title = "Giveaway!", description = f"Prize: {prize}", color = ctx.author.color)
 
         embed.add_field(name = "Hosted by:", value = ctx.author.mention)
 
@@ -79,8 +78,7 @@ class Giveaway(commands.Cog):
 
         my_msg = await channel.send(embed = embed)
 
-
-        await my_msg.add_reaction(":tada:")
+        await my_msg.add_reaction("🎉")
 
 
         await asyncio.sleep(time)
@@ -90,11 +88,19 @@ class Giveaway(commands.Cog):
 
 
         users = await new_msg.reactions[0].users().flatten()
-        users.pop(users.index(client.user))
+        users.pop(users.index(self.bot.user))
 
         winner = random.choice(users)
 
-        await channel.send(f"Congratulations! {winner.mention} won {prize}!")
+        await channel.send(f"Congratulations! {winner.mention} won **{prize}**!")
+
+        e = discord.Embed(title = "Giveaway Ended!", description = f"Prize: {prize}", color = ctx.author.color)
+        e.add_field(name=f"Winner:", value=f"{winner.mention}", inline=False)
+        e.add_field(name = "Hosted by:", value = ctx.author.mention, inline=False)
+
+        e.set_footer(text = f"Ends {answers[1]} from now!")
+
+        await my_msg.edit(embed=e)
 
 def setup(client):
     client.add_cog(Giveaway(client))

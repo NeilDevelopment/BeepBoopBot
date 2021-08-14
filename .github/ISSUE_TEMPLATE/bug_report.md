@@ -21,12 +21,12 @@ A clear and concise description of what you expected to happen.
 **Errors**
 If you get any errors in the console enter them here!
 
-**Screenshots**
+**Screenshots(Optional)**
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Bot Version [e.g. 0.6]
 
-**Additional context**
+**Additional context(Optional)**
 Add any other context about the problem here.
