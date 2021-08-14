@@ -12,8 +12,8 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Start bot
-2. Run command "example @ItsNeil example reason"
+1. Start bot (This is an example.)
+2. Run command "example @ItsNeil example reason" (This is an example.)
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
