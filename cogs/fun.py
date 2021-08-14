@@ -71,5 +71,12 @@ class Fun(commands.Cog):
         embed.add_field(name = 'Channel Type: ', value = str(channel.type))
         await ctx.send(embed = embed)
 
+    @commands.command(aliases = ['ava', 'Avatar', 'AVATAR'])
+    async def avatar(self, ctx, *,  avamember : discord.Member=None):
+        userAvatarUrl = avamember.avatar_url
+        embed=discord.Embed(title=f'{avamember} avatar!!')
+        embed.set_image(url=userAvatarUrl)
+        await ctx.send(embed=embed)```
+
 def setup(client):
     client.add_cog(Fun(client))
