@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import asyncio 
+import datetime
 
 class Fun(commands.Cog):
 
@@ -56,6 +57,19 @@ class Fun(commands.Cog):
         await asyncio.sleep(3)
         e = discord.Embed(title=f"{rancoin}", color=discord.Color.blue())
         await msg.edit(embed=e)
+
+
+    @commands.command(aliases = ['channelstats', 'ChannelInfo', 'Channelinfo'])
+    async def channelinfo(self, ctx, channel:discord.TextChannel):
+        nsfw = self.bot.get_channel(channel.id).is_nsfw()
+        embed = discord.Embed(title = 'Channel Infromation: ' + str(channel),
+        colour = discord.Colour.from_rgb(54, 151, 255))
+        embed.add_field(name = 'Channel Name: ', value = str(channel.name))
+        embed.add_field(name = "Channel's NSFW Status: ", value = str(nsfw))
+        embed.add_field(name = "Channel's id: " , value = str(channel.id))
+        embed.add_field(name = 'Channel Created At: ', value = str(channel.created_at.strftime("%a, %d %B %Y, %I:%M %p UTC")))
+        embed.add_field(name = 'Channel Type: ', value = str(channel.type))
+        await ctx.send(embed = embed)
 
 def setup(client):
     client.add_cog(Fun(client))
