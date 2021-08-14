@@ -1,4 +1,4 @@
-# UltimateCoreBot
+# BeepBoopBot
  This bot will help you manage your server efficiently.
 
 # Getting Started
