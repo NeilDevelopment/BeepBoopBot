@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[Bug]"
 labels: bug
-assignees: ''
+assignees: Neilisop
 
 ---
 
@@ -23,8 +23,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - Bot Version [e.g. 0.6]
 
 **Additional context**
 Add any other context about the problem here.
