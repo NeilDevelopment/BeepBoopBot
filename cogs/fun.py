@@ -76,7 +76,7 @@ class Fun(commands.Cog):
         userAvatarUrl = avamember.avatar_url
         embed=discord.Embed(title=f'{avamember} avatar!!')
         embed.set_image(url=userAvatarUrl)
-        await ctx.send(embed=embed)```
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=['whois', 'Whois', 'WHOis', 'WHOIS'])
     async def userinfo(self,ctx, member: discord.Member):
