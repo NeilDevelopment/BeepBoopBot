@@ -27,6 +27,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.has_permissions(change_nickname=True)
     async def nick(self, ctx, member: discord.Member, name):
         await member.edit(nick=name)
         embed = discord.Embed(title='Nick Name Successfully Changed!')
