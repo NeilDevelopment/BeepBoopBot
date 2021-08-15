@@ -4,12 +4,12 @@ import random
 import asyncio 
 import datetime
 from discord_slash import cog_ext, SlashContext
+import os
 
 class Fun(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
-        guildid = os.getenv("GUILD_ID")
 
     @cog_ext.cog_slash(name="8ball", description="Ask 8ball a question!")
     async def _8ball(self, ctx: SlashContext, *, question):
@@ -74,7 +74,7 @@ class Fun(commands.Cog):
         await ctx.send(embed = embed)
 
     @cog_ext.cog_slash(name="avatar", description="Get a user's profile picture")
-    async def _avatar(self, ctx: SlashContext, *,  avamember : discord.Member=None):
+    async def _avatar(self, ctx: SlashContext, *,  member : discord.Member=None):
         userAvatarUrl = avamember.avatar_url
         embed=discord.Embed(title=f'{avamember} avatar!!')
         embed.set_image(url=userAvatarUrl)

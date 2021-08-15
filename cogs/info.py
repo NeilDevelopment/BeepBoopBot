@@ -13,10 +13,10 @@ class Info(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
-    guild_ids = [851785650230919178]
+    guildid = [851785650230919178]
 
-    @cog_ext.cog_slash(name="help")
-    async def _help(self, ctx: SlashContext, guild_ids=guild_ids):
+    @cog_ext.cog_slash(name="help", description="Help command.")
+    async def _help(self, ctx: SlashContext):
         select = create_select(
             options=[
                 create_select_option("Moderation", value="Moderation"),
@@ -38,8 +38,8 @@ class Info(commands.Cog):
                     value=f"Contains all the fun commands.", inline=False)
         await ctx.send(embed=e, components=[create_actionrow(select)])
 
-    @cog_ext.cog_slash(name="version")
-    async def _version(self, ctx: SlashContext, guild_ids=guild_ids):
+    @cog_ext.cog_slash(name="version", description="Check the version of the bot")
+    async def _version(self, ctx: SlashContext):
         await ctx.send("Running version 0.7 of BeepBoop Bot.")
 
     @commands.Cog.listener()

@@ -10,11 +10,8 @@ class Moderation(commands.Cog):
         self.bot = client
         member = os.getenv("MEMBER_ROLE")
         moderator = os.getenv("MODERATOR_ROLE")
-        guildid = os.getenv("GUILD_ID")
 
-    guild_ids = [851785650230919178]
-
-    @cog_ext.cog_slash(name="lock", guild_ids=guild_ids)    
+    @cog_ext.cog_slash(name="lock")    
     @commands.has_permissions(manage_channels=True)
     async def _lock(self, ctx: SlashContext):
         Moderators = discord.utils.get(ctx.guild.roles, id=moderator)

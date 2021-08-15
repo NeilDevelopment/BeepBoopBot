@@ -3,16 +3,16 @@ from discord.ext import commands
 import os 
 import random
 import asyncio
+from discord_slash import cog_ext, SlashContext
 
 class Giveaway(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
         admin_role = os.getenv("ADMIN_ROLE")
-        guildid = os.getenv("GUILD_ID")
 
-    @commands.command()
-    async def giveaway(self, ctx, ):
+    @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!")
+    async def _giveaway(self, ctx: SlashContext, channel: discord.TextChannel, time, prize):
         def convert(time):
             pos = ["s","m","h","d"]
 
@@ -30,7 +30,7 @@ class Giveaway(commands.Cog):
 
             return val * time_dict[unit]
 
-        time = convert(time)
+        timeconv = convert(time)
         if time == -1:
             await ctx.send(f"You didn't answer the time with a proper unit. Use (s|m|h|d) next time!")
             return
@@ -38,21 +38,21 @@ class Giveaway(commands.Cog):
             await ctx.send(f"The time must be an integer. Please enter an integer next time")
             return            
 
-        await ctx.send(f"The Giveaway will be in {channel.mention} and will last {answers[1]}!")
+        await ctx.send(f"The Giveaway will be in {channel.mention} and will last {time}!")
 
 
         embed = discord.Embed(title = "Giveaway!", description = f"Prize: {prize}", color = ctx.author.color)
 
         embed.add_field(name = "Hosted by:", value = ctx.author.mention)
 
-        embed.set_footer(text = f"Ends {answers[1]} from now!")
+        embed.set_footer(text = f"Ends {time} from now!")
 
         my_msg = await channel.send(embed = embed)
 
         await my_msg.add_reaction("🎉")
 
 
-        await asyncio.sleep(time)
+        await asyncio.sleep(timeconv)
 
 
         new_msg = await channel.fetch_message(my_msg.id)
@@ -69,7 +69,7 @@ class Giveaway(commands.Cog):
         e.add_field(name=f"Winner:", value=f"{winner.mention}", inline=False)
         e.add_field(name = "Hosted by:", value = ctx.author.mention, inline=False)
 
-        e.set_footer(text = f"Ends {answers[1]} from now!")
+        e.set_footer(text = f"Giveaway ended!")
 
         await my_msg.edit(embed=e)
 
