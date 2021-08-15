@@ -3,16 +3,23 @@ from discord.ext import commands
 import os 
 import random
 import asyncio
+import discord_slash
 from discord_slash import cog_ext, SlashContext
 
 class Giveaway(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
-        admin_role = os.getenv("ADMIN_ROLE")
+    
+    admin_role = os.getenv("ADMIN_ROLE")    
+    guildid = os.getenv("GUILD_ID")
 
-    @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!")
-    @commands.has_permission(ban_members=True)
+    @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!", default_permission=False, permissions={
+    guildid: [
+        discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
+    ]
+})
+    @commands.has_permissions(ban_members=True)
     async def _giveaway(self, ctx: SlashContext, channel: discord.TextChannel, time, prize):
         def convert(time):
             pos = ["s","m","h","d"]
