@@ -12,6 +12,7 @@ class Giveaway(commands.Cog):
         admin_role = os.getenv("ADMIN_ROLE")
 
     @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!")
+    @commands.has_permission(ban_members=True)
     async def _giveaway(self, ctx: SlashContext, channel: discord.TextChannel, time, prize):
         def convert(time):
             pos = ["s","m","h","d"]
