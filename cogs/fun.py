@@ -10,8 +10,6 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
-    guild_ids = [851785650230919178]
-
     @cog_ext.cog_slash(name="8ball")
     async def _8ball(self, ctx: SlashContext, *, question):
         responses = ["It is certain.",
