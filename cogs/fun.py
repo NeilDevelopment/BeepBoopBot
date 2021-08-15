@@ -3,14 +3,17 @@ from discord.ext import commands
 import random
 import asyncio 
 import datetime
+from discord_slash import cog_ext, SlashContext
 
 class Fun(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
 
-    @commands.command(aliases=['8ball', '8BALL'])
-    async def _8ball(self, ctx, *, question):
+    guild_ids = [851785650230919178]
+
+    @cog_ext.cog_slash(name="8ball")
+    async def _8ball(self, ctx: SlashContext, *, question):
         responses = ["It is certain.",
                      "It is decidedly so.",
                      "Without a doubt.",
@@ -37,8 +40,8 @@ class Fun(commands.Cog):
                      value=f"**Answer:** {random.choice(responses)}")
         await ctx.send(embed=em)
 
-    @commands.command()
-    async def count(self, ctx, channel: discord.TextChannel = None):
+    @cog_ext.cog_slash(name="count")
+    async def _count(self, ctx: SlashContext, channel: discord.TextChannel = None):
         channel = channel or ctx.channel
         messages = await channel.history(limit=None).flatten()
         count = len(messages)
@@ -48,8 +51,8 @@ class Fun(commands.Cog):
             description=f"There were {count} messages in {channel.mention}")
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def flip(self, ctx):
+    @cog_ext.cog_slash(name="flip")
+    async def _flip(self, ctx: SlashContext):
         choices = ["Heads", "Tails"]
         rancoin = random.choice(choices)
         e = discord.Embed(title="Rolling...", color=discord.Color.blue())
@@ -59,8 +62,8 @@ class Fun(commands.Cog):
         await msg.edit(embed=e)
 
 
-    @commands.command(aliases = ['channelstats', 'ChannelInfo', 'Channelinfo'])
-    async def channelinfo(self, ctx, channel:discord.TextChannel):
+    @cog_ext.cog_slash(name="channelinfo")
+    async def _channelinfo(self, ctx: SlashContext, channel: discord.TextChannel):
         nsfw = self.bot.get_channel(channel.id).is_nsfw()
         embed = discord.Embed(title = 'Channel Infromation: ' + str(channel),
         colour = discord.Colour.from_rgb(54, 151, 255))
@@ -71,15 +74,15 @@ class Fun(commands.Cog):
         embed.add_field(name = 'Channel Type: ', value = str(channel.type))
         await ctx.send(embed = embed)
 
-    @commands.command(aliases = ['ava', 'Avatar', 'AVATAR'])
-    async def avatar(self, ctx, *,  avamember : discord.Member=None):
+    @cog_ext.cog_slash(name="avatar")
+    async def _avatar(self, ctx: SlashContext, *,  avamember : discord.Member=None):
         userAvatarUrl = avamember.avatar_url
         embed=discord.Embed(title=f'{avamember} avatar!!')
         embed.set_image(url=userAvatarUrl)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['whois', 'Whois', 'WHOis', 'WHOIS'])
-    async def userinfo(self,ctx, member: discord.Member):
+    @cog_ext.cog_slash(name="userinfo")
+    async def _userinfo(self, ctx: SlashContext, member: discord.Member):
         roles = [role for role in member.roles]
         embed = discord.Embed(color=member.color, timestamp=datetime.datetime.utcnow())
         embed.set_author(name=f"{member}", icon_url=member.avatar_url)
@@ -93,8 +96,8 @@ class Fun(commands.Cog):
         embed.set_footer(icon_url=member.avatar_url, text=f'Requested By: {ctx.author.name}')
         await ctx.send(embed=embed)
 
-    @commands.command(aliases = ['guildinfo', 'Serverinfo', 'ServerInfo', 'GuildInfo', 'Guikldinfo'])
-    async def serverinfo(self, ctx):
+    @cog_ext.cog_slash(name="serverinfo")
+    async def _serverinfo(self, ctx: SlashContext):
             findbots = sum(1 for member in ctx.guild.members if member.bot)
             embed = discord.Embed(title = 'Infomation about ' + ctx.guild.name + '.', colour = discord.Colour.from_rgb(54,151,255))
             embed.set_thumbnail(url = str(ctx.guild.icon_url))
@@ -106,6 +109,7 @@ class Fun(commands.Cog):
             embed.add_field(name="Bots", value=findbots, inline=True)
             embed.add_field(name = "Guild created at: ", value = str(ctx.guild.created_at.strftime("%a, %d %B %Y, %I:%M %p UTC")))
             await ctx.send(embed =  embed)
+
 
 def setup(client):
     client.add_cog(Fun(client))

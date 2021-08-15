@@ -23,7 +23,7 @@ class Moderation(commands.Cog):
         await ctx.channel.purge(limit=amount)
         await ctx.message.channel.set_permissions(overwrites=overwrites)
         embed = discord.Embed(
-            title=f'This channel has been unlocked by: {ctx.message.author}')
+            title=f'This channel has been lock by: {ctx.message.author}')
         await ctx.send(embed=embed)
 
     @commands.command()

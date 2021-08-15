@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os 
+from discord_slash import SlashCommand, SlashContext
 
 print("--------------------------")
 print("Beep Boop Bot is starting.")
@@ -16,6 +17,7 @@ print("Loaded ENV file.")
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
+slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 
 @client.event
 async def on_connect():
