@@ -10,6 +10,7 @@ class Moderation(commands.Cog):
         self.bot = client
         member = os.getenv("MEMBER_ROLE")
         moderator = os.getenv("MODERATOR_ROLE")
+        guildid = os.getenv("GUILD_ID")
 
     guild_ids = [851785650230919178]
 

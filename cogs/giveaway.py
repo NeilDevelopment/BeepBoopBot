@@ -9,9 +9,10 @@ class Giveaway(commands.Cog):
     def __init__(self, client):
         self.bot = client
         admin_role = os.getenv("ADMIN_ROLE")
+        guildid = os.getenv("GUILD_ID")
 
     @commands.command()
-    async def giveaway(self, ctx):
+    async def giveaway(self, ctx, ):
         def convert(time):
             pos = ["s","m","h","d"]
 
