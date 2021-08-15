@@ -97,7 +97,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=em)
 
         embed = discord.Embed(
-            title='You have been banned from The Coding Community', description=f'Banned by {member}')
+            title=f'You have been banned from {guild.name}', description=f'Banned by {member}')
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
