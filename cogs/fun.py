@@ -10,7 +10,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
-    @cog_ext.cog_slash(name="8ball")
+    @cog_ext.cog_slash(name="8ball", description="Ask 8ball a question!")
     async def _8ball(self, ctx: SlashContext, *, question):
         responses = ["It is certain.",
                      "It is decidedly so.",
@@ -38,7 +38,7 @@ class Fun(commands.Cog):
                      value=f"**Answer:** {random.choice(responses)}")
         await ctx.send(embed=em)
 
-    @cog_ext.cog_slash(name="count")
+    @cog_ext.cog_slash(name="count", description="Count a channel's messages.")
     async def _count(self, ctx: SlashContext, channel: discord.TextChannel = None):
         channel = channel or ctx.channel
         messages = await channel.history(limit=None).flatten()
@@ -49,7 +49,7 @@ class Fun(commands.Cog):
             description=f"There were {count} messages in {channel.mention}")
         await ctx.send(embed=embed)
 
-    @cog_ext.cog_slash(name="flip")
+    @cog_ext.cog_slash(name="flip", description="Flip a coin.")
     async def _flip(self, ctx: SlashContext):
         choices = ["Heads", "Tails"]
         rancoin = random.choice(choices)
@@ -60,7 +60,7 @@ class Fun(commands.Cog):
         await msg.edit(embed=e)
 
 
-    @cog_ext.cog_slash(name="channelinfo")
+    @cog_ext.cog_slash(name="channelinfo", description="Get information about a channel.")
     async def _channelinfo(self, ctx: SlashContext, channel: discord.TextChannel):
         nsfw = self.bot.get_channel(channel.id).is_nsfw()
         embed = discord.Embed(title = 'Channel Infromation: ' + str(channel),
@@ -72,14 +72,14 @@ class Fun(commands.Cog):
         embed.add_field(name = 'Channel Type: ', value = str(channel.type))
         await ctx.send(embed = embed)
 
-    @cog_ext.cog_slash(name="avatar")
+    @cog_ext.cog_slash(name="avatar", description="Get a user's profile picture")
     async def _avatar(self, ctx: SlashContext, *,  avamember : discord.Member=None):
         userAvatarUrl = avamember.avatar_url
         embed=discord.Embed(title=f'{avamember} avatar!!')
         embed.set_image(url=userAvatarUrl)
         await ctx.send(embed=embed)
 
-    @cog_ext.cog_slash(name="userinfo")
+    @cog_ext.cog_slash(name="userinfo", description="Get information about a user.")
     async def _userinfo(self, ctx: SlashContext, member: discord.Member):
         roles = [role for role in member.roles]
         embed = discord.Embed(color=member.color, timestamp=datetime.datetime.utcnow())
@@ -94,7 +94,7 @@ class Fun(commands.Cog):
         embed.set_footer(icon_url=member.avatar_url, text=f'Requested By: {ctx.author.name}')
         await ctx.send(embed=embed)
 
-    @cog_ext.cog_slash(name="serverinfo")
+    @cog_ext.cog_slash(name="serverinfo", description="Get information about the server.")
     async def _serverinfo(self, ctx: SlashContext):
             findbots = sum(1 for member in ctx.guild.members if member.bot)
             embed = discord.Embed(title = 'Infomation about ' + ctx.guild.name + '.', colour = discord.Colour.from_rgb(54,151,255))

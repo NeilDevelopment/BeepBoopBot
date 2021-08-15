@@ -28,44 +28,14 @@ class Giveaway(commands.Cog):
 
 
             return val * time_dict[unit]
-        await ctx.send("Let's start with this giveaway! Answer these questions within 15 seconds!")
 
-        questions = ["Which channel should it be hosted in?", 
-                    "What should be the duration of the giveaway? (s|m|h|d)",
-                    "What is the prize of the giveaway?"]
-
-        answers = []
-
-        def check(m):
-            return m.author == ctx.author and m.channel == ctx.channel 
-
-        for i in questions:
-            await ctx.send(i)
-
-            try:
-                msg = await self.bot.wait_for('message', timeout=15.0, check=check)
-            except asyncio.TimeoutError:
-                await ctx.send('You didn\'t answer in time, please be quicker next time!')
-                return
-            else:
-                answers.append(msg.content)
-        try:
-            c_id = int(answers[0][2:-1])
-        except:
-            await ctx.send(f"You didn't mention a channel properly. Do it like this {ctx.channel.mention} next time.")
-            return
-
-        channel = self.bot.get_channel(c_id)
-
-        time = convert(answers[1])
+        time = convert(time)
         if time == -1:
             await ctx.send(f"You didn't answer the time with a proper unit. Use (s|m|h|d) next time!")
             return
         elif time == -2:
             await ctx.send(f"The time must be an integer. Please enter an integer next time")
             return            
-
-        prize = answers[2]
 
         await ctx.send(f"The Giveaway will be in {channel.mention} and will last {answers[1]}!")
 

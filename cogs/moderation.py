@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
 import os 
 from dotenv import load_dotenv
 
@@ -10,20 +11,21 @@ class Moderation(commands.Cog):
         member = os.getenv("MEMBER_ROLE")
         moderator = os.getenv("MODERATOR_ROLE")
 
+    guild_ids = [851785650230919178]
 
-    @commands.command(aliases=['Lock', 'LOCK'])
+    @cog_ext.cog_slash(name="lock", guild_ids=guild_ids)    
     @commands.has_permissions(manage_channels=True)
-    async def lock(self, ctx, amount=1):
+    async def _lock(self, ctx: SlashContext):
         Moderators = discord.utils.get(ctx.guild.roles, id=moderator)
         members = discord.utils.get(ctx.guild.roles, id=member)
         overwrites = {
                 Moderators: discord.PermissionOverwrite(read_messages=True),
                 members: discord.PermissionOverwrite(read_messages=False),
         }
-        await ctx.channel.purge(limit=amount)
+        await ctx.channel.purge(limit=1)
         await ctx.message.channel.set_permissions(overwrites=overwrites)
         embed = discord.Embed(
-            title=f'This channel has been lock by: {ctx.message.author}')
+            title=f'This channel has been locked by: {ctx.message.author}')
         await ctx.send(embed=embed)
 
     @commands.command()
