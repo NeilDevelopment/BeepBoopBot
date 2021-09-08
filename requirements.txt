@@ -1,7 +1,7 @@
 discord
 python-dotenv
 asyncio
-json
-discord-interactions
+os
+discord-py-slash-command
 datetime
 random
