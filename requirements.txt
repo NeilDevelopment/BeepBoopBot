@@ -3,4 +3,3 @@ python-dotenv
 asyncio
 discord-py-slash-command
 datetime
-random
