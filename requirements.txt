@@ -1,0 +1,7 @@
+discord
+python-dotenv
+asyncio
+json
+discord-interactions
+datetime
+random
