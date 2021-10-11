@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="static/index.css" />
+    <style>
+      button {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 12px;
+      }
+      button:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Beep Boop Bot Dashboard!</h1>
+
+    <div class="picker">
+      <h3>Hello, {{username}}! Please select a server to get started</h3>
+      <hr />
+      <section class="cards">
+        {% for guild in guilds %}
+        <div class="card">
+          <a href="/dashboard/{{guild.id}}">
+            {% if guild.icon_url is not none %}
+            <img src="{{guild.icon_url}}" class="{{guild.class_color}}" />
+            {% else %}
+            <img
+              src="https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"
+              class="{{guild.class_color}}"
+            />
+            {% endif %}
+          </a>
+          <br />
+          {{ guild.name }}
+        </div>
+        {% endfor %}
+      </section>
+    </div>
+    <p align="center">
+      <a href="/"><button>Back to Home</button></a>
+    </p>
+  </body>
+</html>

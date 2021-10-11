@@ -75,8 +75,8 @@ class Fun(commands.Cog):
 
     @cog_ext.cog_slash(name="avatar", description="Get a user's profile picture")
     async def _avatar(self, ctx: SlashContext, *,  member : discord.Member=None):
-        userAvatarUrl = avamember.avatar_url
-        embed=discord.Embed(title=f'{avamember} avatar!!')
+        userAvatarUrl = member.avatar_url
+        embed=discord.Embed(title=f'{member} avatar!')
         embed.set_image(url=userAvatarUrl)
         await ctx.send(embed=embed)
 
