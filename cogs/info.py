@@ -13,8 +13,6 @@ class Info(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
-    guildid = [851785650230919178]
-
     @cog_ext.cog_slash(name="help", description="Help command.")
     async def _help(self, ctx: SlashContext):
         select = create_select(

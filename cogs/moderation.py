@@ -3,62 +3,30 @@ from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 import os 
 from dotenv import load_dotenv
+import json
 
 class Moderation(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
-        member = os.getenv("MEMBER_ROLE")
-        moderator = os.getenv("MODERATOR_ROLE")
 
-    @cog_ext.cog_slash(name="lock")    
-    @commands.has_permissions(manage_channels=True)
-    async def _lock(self, ctx: SlashContext):
-        Moderators = discord.utils.get(ctx.guild.roles, id=moderator)
-        members = discord.utils.get(ctx.guild.roles, id=member)
-        overwrites = {
-                Moderators: discord.PermissionOverwrite(read_messages=True),
-                members: discord.PermissionOverwrite(read_messages=False),
-        }
-        await ctx.channel.purge(limit=1)
-        await ctx.message.channel.set_permissions(overwrites=overwrites)
-        embed = discord.Embed(
-            title=f'This channel has been locked by: {ctx.message.author}')
-        await ctx.send(embed=embed)
-
-    @commands.command()
+    @cog_ext.cog_slash(name="nick", description="Change someone's nickname.")
     @commands.has_permissions(change_nickname=True)
-    async def nick(self, ctx, member: discord.Member, name):
+    async def _nick(self, ctx, member: discord.Member, name):
         await member.edit(nick=name)
         embed = discord.Embed(title='Nick Name Successfully Changed!')
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['Clear', 'CLEAR'])
+    @cog_ext.cog_slash(name="clear", description="Clear messages.")
     @commands.has_permissions(manage_messages=True)
-    async def clear(self, ctx, amount: int):
+    async def _clear(self, ctx, amount: int):
         await ctx.message.delete()
         await ctx.send("Clearing messages, this may take a while..", delete_after=10)
         await ctx.channel.purge(limit=amount)
         await ctx.send(f'{amount} messages has been cleared', delete_after=5)
 
-    @commands.command(aliases=['Unlock', 'UNLOCK'])
-    @commands.has_permissions(manage_channels=True)
-    async def unlock(self, ctx, amount=1):
-        await ctx.channel.purge(limit=amount)
-        Moderators = discord.utils.get(ctx.guild.roles, id=moderator)
-        members = discord.utils.get(ctx.guild.roles, id=member)
-        overwrites = {
-                Moderators: discord.PermissionOverwrite(read_messages=True),
-                members: discord.PermissionOverwrite(read_messages=False),
-        }
-        await ctx.channel.purge(limit=amount)
-        await ctx.message.channel.set_permissions(overwrites=overwrites)
-        embed = discord.Embed(
-            title=f'This channel has been unlocked by: {ctx.message.author}')
-        await ctx.send(embed=embed)
-
-    @commands.command(aliases=['Slowmode', 'SlowMode', 'SLOWMODE'])
-    async def slowmode(self, ctx, time: int):
+    @cog_ext.cog_slash(name="slowmode", description="Set slowmode.")
+    async def _slowmode(self, ctx, time: int):
         try:
             if time == 0:
                 embed = discord.Embed(title='Slowmode turned off')
@@ -79,16 +47,16 @@ class Moderation(commands.Cog):
         except Exception:
             traceback.print_exc()
 
-    @commands.command(aliases=['Softban', 'SOFTBAN'])
-    async def softban(self, ctx, member: discord.Member, *, reason='No reason provided'):
+    @cog_ext.cog_slash(name="softban", description="Softban someone.")
+    async def _softban(self, ctx, member: discord.Member, *, reason='No reason provided'):
         await member.ban(reason=reason)
         await member.unban(reason=reason)
         embed = discord.Embed(title=f'Successfully softbanned {member}')
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['Ban', 'BAN'])
+    @cog_ext.cog_slash(name="ban", description="Ban someone.")
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member = None, *, reason=None):
+    async def _ban(self, ctx, member: discord.Member = None, *, reason=None):
         if member is None:
             em = discord.Embed(title='Please specify a member.')
             await ctx.send(embed=em)
@@ -102,9 +70,9 @@ class Moderation(commands.Cog):
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
-    @commands.command(aliases=['Unban', 'UNBAN'])
+    @cog_ext.cog_slash(name="unban", description="Unban someone.")
     @commands.has_permissions(ban_members=True)
-    async def unban(self, ctx, *, member):
+    async def _unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
 
@@ -117,9 +85,9 @@ class Moderation(commands.Cog):
                 await ctx.send(embed=em)
                 return
 
-    @commands.command()
+    @cog_ext.cog_slash(name="kick", description="Kick someone.")
     @commands.has_permissions(administrator=True)
-    async def kick(self, ctx, member: discord.Member = None, *, reason='No reason provided'):
+    async def _kick(self, ctx, member: discord.Member = None, *, reason='No reason provided'):
         if not member:
             em = discord.Embed(title='Please specify a member.')
             await ctx.send(embed=em)
@@ -132,9 +100,9 @@ class Moderation(commands.Cog):
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
-    @commands.command(aliases=['Warn', 'WARN'])
+    @cog_ext.cog_slash(name="warn", description="Warn someone.")
     @commands.has_permissions(kick_members=True)
-    async def warn(self, ctx, member: discord.Member, *, reason="No reason Provided"):
+    async def _warn(self, ctx, member: discord.Member, *, reason="No reason Provided"):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
         if str(ctx.guild.id) not in warns:
@@ -154,9 +122,9 @@ class Moderation(commands.Cog):
             embed.add_field(name='Reason:', value=f'{reason}')
             await member.send(embed=embed)
 
-    @commands.command()
+    @cog_ext.cog_slash(name="removewarn", description="Remove a warning.")
     @commands.has_permissions(manage_guild=True)
-    async def removewarn(self, ctx, member: discord.Member, num: int, *, reason='No reason provided.'):
+    async def _removewarn(self, ctx, member: discord.Member, num: int, *, reason='No reason provided.'):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
 
@@ -170,9 +138,9 @@ class Moderation(commands.Cog):
                 title=f'Your warn in {ctx.guild.name}  been removed', description=f'Your warning was removed by {ctx.author}')
             await member.send(embed=embed)
 
-    @commands.command(aliases=['Warns', 'WARNS'])
+    @cog_ext.cog_slash(name="warns", description="Get a user's warnings.")
     @commands.has_permissions(manage_messages=True)
-    async def warns(self, ctx, member: discord.Member):
+    async def _warns(self, ctx, member: discord.Member):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
 
