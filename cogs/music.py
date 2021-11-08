@@ -9,6 +9,7 @@ import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
+from discord_slash import cog_ext, SlashContext
 # Not really usefull bug report message
 youtube_dl.utils.bug_reports_message = lambda: ''
 
