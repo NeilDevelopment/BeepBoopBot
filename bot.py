@@ -9,6 +9,7 @@ print("--------------------------")
 print("Beep Boop Bot is starting.")
 print("--------------------------")
 print("Loading ENV file.")
+
 load_dotenv()
 token = os.getenv("TOKEN")
 prefix = os.getenv("PREFIX")
