@@ -10,6 +10,9 @@ class Moderation(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
+    admin_role = os.getenv("ADMIN_ROLE")    
+    guildid = os.getenv("GUILD_ID")
+
     @cog_ext.cog_slash(name="nick", description="Change someone's nickname.")
     @commands.has_permissions(change_nickname=True)
     async def _nick(self, ctx, member: discord.Member, name):
@@ -150,6 +153,17 @@ class Moderation(commands.Cog):
             warnings.add_field(name=f"Warn {num}", value=warn)
             num += 1
         await ctx.send(embed=warnings)
+
+    @cog_ext.cog_slash(name="setstatus", description="Set the bot's status!", default_permission=False, permissions={
+    guildid: [
+        discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
+    ]
+})
+    async def _setstatus(self, ctx, *, status):
+        await self.bot.change_presence(activity = discord.Game(name=status))
+        em = discord.Embed(title=f'Status set to {status}')
+        await ctx.send(embed=em)
+
 
 def setup(client):
     client.add_cog(Moderation(client))

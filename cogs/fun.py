@@ -108,7 +108,11 @@ class Fun(commands.Cog):
             embed.add_field(name="Bots", value=findbots, inline=True)
             embed.add_field(name = "Guild created at: ", value = str(ctx.guild.created_at.strftime("%a, %d %B %Y, %I:%M %p UTC")))
             await ctx.send(embed =  embed)
-
+    
+    @cog_ext.cog_slash(name="embed", description="Create a embed")
+    async def _embed(self, ctx: SlashContext, *,str, content: str):
+        embed = discord.Embed(title="Embed Creator", description=content, color=0x00ff00)
+        await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Fun(client))
