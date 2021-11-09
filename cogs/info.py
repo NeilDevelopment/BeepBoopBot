@@ -43,11 +43,11 @@ class Info(commands.Cog):
     @commands.Cog.listener()
     async def on_component(self, ctx):
         if ctx.selected_options[0] == "Moderation":
-            embed = discord.Embed(title="Moderation", description="`lock` - Locks the channel the command was ran in.\n `nick` - Set's a user's nickname.\n `clear` - Clears a amount of messages.\n `unlock` - Unlocks the channel the command was ran in.\n `ban` - Bans a member\n `unban` - Unbans a member\n `kick` - Kicks a member.\n `warn` - Warns a member\n `removewarn` - Removes a warn from a member.\n `warns` - Check a member's warns. \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#moderation)!**", color=discord.Color.blue())
+            embed = discord.Embed(title="Moderation", description="`nick` - Set's a user's nickname.\n `clear` - Clears a amount of messages.\n`ban` - Bans a member\n `unban` - Unbans a member\n `kick` - Kicks a member.\n `warn` - Warns a member\n `removewarn` - Removes a warn from a member.\n `warns` - Check a member's warns. \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#moderation)!**", color=discord.Color.blue())
             await ctx.edit_origin(embed=embed)
         if ctx.selected_options[0] == "Fun":
             embed = discord.Embed(title="Fun",
-                                  description=f"`8ball` - Ask 8ball a question.\n `count` - Find the totally amount of messages sent in the channel.\n `flip` - Flip a coin.\n `channelinfo` - Get information about a channel.\n `avatar` - Get a user's profile picture.\n `userinfo` - Get information about a user.\n `serverinfo` - Get information about the server. \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#fun)!**", color=discord.Color.blue())
+                                  description=f"`8ball` - Ask 8ball a question.\n `count` - Find the totally amount of messages sent in the channel.\n `flip` - Flip a coin.\n `channelinfo` - Get information about a channel.\n `avatar` - Get a user's profile picture.\n `userinfo` - Get information about a user.\n `serverinfo` - Get information about the server.\n `embed` - Make an embed \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#fun)!**", color=discord.Color.blue())
             await ctx.edit_origin(embed=embed)
         if ctx.selected_options[0] == "Giveaway":
             embed = discord.Embed(title="Giveaway",
