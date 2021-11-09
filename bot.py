@@ -44,7 +44,7 @@ for filename in os.listdir('./cogs'):
 		client.load_extension(f'cogs.{filename[:-3]}')
 		print(f"\"{filename[:-3]}\" cog has been loaded.")
 
-""" evoloper stuff
+"""Devoloper stuff
 Everything here is for devolopment and testing."""
 
 """
