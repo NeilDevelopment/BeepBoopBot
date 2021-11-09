@@ -32,7 +32,10 @@ class Fun(commands.Cog):
                      "My reply is no.",
                      "My sources say no.",
                      "Outlook not so good.",
-                     "Very doubtful."]
+                     "Very doubtful.",
+                     "Yeah",
+                     "No",
+                     "Alright, that's a yes from me!"]
         em = discord.Embed(title='Magic 8ball!',
                            colour=discord.Colour.blue())
         em.add_field(name=f"**Question:** {question}",
