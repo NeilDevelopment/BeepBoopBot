@@ -53,11 +53,11 @@ class Fun(commands.Cog):
     @cog_ext.cog_slash(name="flip", description="Flip a coin.")
     async def _flip(self, ctx: SlashContext):
         choices = ["Heads", "Tails"]
-        rancoin = random.choice(choices)
+        randomcoin = random.choice(choices)
         e = discord.Embed(title="Rolling...", color=discord.Color.blue())
         msg = await ctx.send(embed=e)
         await asyncio.sleep(3)
-        e = discord.Embed(title=f"{rancoin}", color=discord.Color.blue())
+        e = discord.Embed(title=f"{randomcoin}", color=discord.Color.blue())
         await msg.edit(embed=e)
 
 
