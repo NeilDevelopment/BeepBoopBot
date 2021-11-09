@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import discord_slash
 from discord_slash import cog_ext, SlashContext
 import os 
 from dotenv import load_dotenv
@@ -11,7 +12,7 @@ class Moderation(commands.Cog):
         self.bot = client
 
     admin_role = os.getenv("ADMIN_ROLE")    
-    guildid = os.getenv("GUILD_ID")
+    guild_id = os.getenv("GUILD_ID")
 
     @cog_ext.cog_slash(name="nick", description="Change someone's nickname.")
     @commands.has_permissions(change_nickname=True)
@@ -155,7 +156,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=warnings)
 
     @cog_ext.cog_slash(name="setstatus", description="Set the bot's status!", default_permission=False, permissions={
-    guildid: [
+    guild_id: [
         discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
     ]
 })

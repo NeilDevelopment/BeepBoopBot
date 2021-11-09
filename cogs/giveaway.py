@@ -12,10 +12,10 @@ class Giveaway(commands.Cog):
         self.bot = client
     
     admin_role = os.getenv("ADMIN_ROLE")    
-    guildid = os.getenv("GUILD_ID")
+    guild_id = os.getenv("GUILD_ID")
 
     @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!", default_permission=False, permissions={
-    guildid: [
+    guild_id: [
         discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
     ]
 })
