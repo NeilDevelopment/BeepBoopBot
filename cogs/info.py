@@ -38,12 +38,12 @@ class Info(commands.Cog):
 
     @cog_ext.cog_slash(name="version", description="Check the version of the bot")
     async def _version(self, ctx: SlashContext):
-        await ctx.send("Running version 0.7 of BeepBoop Bot.")
+        await ctx.send("Running version 1.0 of BeepBoopBot.")
 
     @commands.Cog.listener()
     async def on_component(self, ctx):
         if ctx.selected_options[0] == "Moderation":
-            embed = discord.Embed(title="Moderation", description="`nick` - Set's a user's nickname.\n `clear` - Clears a amount of messages.\n`ban` - Bans a member\n `unban` - Unbans a member\n `kick` - Kicks a member.\n `warn` - Warns a member\n `removewarn` - Removes a warn from a member.\n `warns` - Check a member's warns. \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#moderation)!**", color=discord.Color.blue())
+            embed = discord.Embed(title="Moderation", description="`nick` - Set's a user's nickname.\n `clear` - Clears a amount of messages.\n `ban` - Bans a member\n `unban` - Unbans a member\n `kick` - Kicks a member.\n `warn` - Warns a member\n `removewarn` - Removes a warn from a member.\n `warns` - Check a member's warns. \n\n **Syntax's and more information [here](https://github.com/NeilDevolopment/BeepBoopBot/wiki/Commands#moderation)!**", color=discord.Color.blue())
             await ctx.edit_origin(embed=embed)
         if ctx.selected_options[0] == "Fun":
             embed = discord.Embed(title="Fun",
