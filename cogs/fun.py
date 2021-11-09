@@ -43,11 +43,11 @@ class Fun(commands.Cog):
     async def _count(self, ctx: SlashContext, channel: discord.TextChannel = None):
         channel = channel or ctx.channel
         messages = await channel.history(limit=None).flatten()
-        count = len(messages)
+        messagecount = len(messages)
         embed = discord.Embed(
             title="Total Messages",
             colour=0x2859b8,
-            description=f"There were {count} messages in {channel.mention}")
+            description=f"There were {messagecount} messages in {channel.mention}")
         await ctx.send(embed=embed)
 
     @cog_ext.cog_slash(name="flip", description="Flip a coin.")
