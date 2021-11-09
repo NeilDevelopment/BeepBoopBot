@@ -38,7 +38,7 @@ class Info(commands.Cog):
 
     @cog_ext.cog_slash(name="version", description="Check the version of the bot")
     async def _version(self, ctx: SlashContext):
-        await ctx.send("Running version 1.1 of BeepBoopBot.")
+        await ctx.send("Running version 1.2 of BeepBoopBot.")
 
     @commands.Cog.listener()
     async def on_component(self, ctx):
