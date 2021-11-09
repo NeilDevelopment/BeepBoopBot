@@ -10,7 +10,7 @@ class Fun(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
-
+    
     @cog_ext.cog_slash(name="8ball", description="Ask 8ball a question!")
     async def _8ball(self, ctx: SlashContext, *, question):
         responses = ["It is certain.",
