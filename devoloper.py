@@ -13,12 +13,9 @@ import logging
 logging.basicConfig (level=logging.DEBUG)
 
 load_dotenv()
-logging.info("Loading env")
-token = os.getenv("TOKEN")
-prefix = os.getenv("PREFIX")
-member = os.getenv("MEMBER_ROLE")
-moderator = os.getenv("MODERATOR_ROLE")
-logging.info("Env loaded")
+
+token = os.environ.get('token')
+prefix = "!"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -36,12 +33,6 @@ async def on_ready():
 #client.load_extension("cogs.fun")
 #client.load_extension("cogs.info")
 #client.load_extension("cogs.giveaway")
-
-logging.info("Loading cogs")
-for filename in os.listdir('./cogs'):
-	if filename.endswith(".py"):
-		client.load_extension(f'cogs.{filename[:-3]}')
-logging.info("Cogs loaded")
 
 dev_mod = os.getenv("MODERATOR_ROLE")
 dev_admin = os.getenv("ADMIN_ROLE")
