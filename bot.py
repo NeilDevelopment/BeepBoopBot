@@ -44,22 +44,4 @@ for filename in os.listdir('./cogs'):
 		client.load_extension(f'cogs.{filename[:-3]}')
 		print(f"\"{filename[:-3]}\" cog has been loaded.")
 
-"""Devoloper stuff
-Everything here is for devolopment and testing."""
-
-"""
-dev_mod = os.getenv("MODERATOR_ROLE")
-dev_admin = os.getenv("ADMIN_ROLE")
-dev_member = os.getenv("MEMBER_ROLE")
-dev_guild = os.getenv("GUILD_ID")
-asyncio.sleep(10)
-print("")
-print("")
-print("")
-print("")
-print("Moderator:" + dev_mod)
-print("Admin:" + dev_admin)
-print("Member:" + dev_member)
-print("Guild:" + dev_guild)
-"""
 client.run(token)
