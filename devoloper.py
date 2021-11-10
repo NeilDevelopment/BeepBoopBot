@@ -10,12 +10,21 @@ from discord_slash import SlashCommand, SlashContext
 import asyncio
 import logging
 
-logging.basicConfig (level=logging.DEBUG)
+print("WARNING:")
+print("You are using the devolopment version of the bot.")
+print("We do not suggest this, if you would like to use this in production")
+print("please use the file named \"bot.py\"")
+
+logging.basicConfig (level=logging.INFO)
 
 load_dotenv()
 
-token = os.environ.get('token')
-prefix = "!"
+token = os.environ["TOKEN"]
+prefix = os.environ["PREFIX"]
+member = os.environ["MEMBER_ID"]
+mod = os.environ["MOD"]
+admin = os.environ["ADMIN"]
+guild = os.environ["GUILD"]
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -23,29 +32,21 @@ slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 
 @client.event
 async def on_connect():
-	print("Connected to discord.")
+    print("Connected to discord.")
 
 @client.event
 async def on_ready():
-    print("Started")
+    print("Bot started")
+    await asyncio.sleep(5)
+    print("Moderator:" + mod)
+    print("Admin:" + admin)
+    print("Member:" + member)
+    print("Guild:" + guild)
+
 
 #client.load_extension("cogs.moderation")
 #client.load_extension("cogs.fun")
 #client.load_extension("cogs.info")
 #client.load_extension("cogs.giveaway")
-
-dev_mod = os.getenv("MODERATOR_ROLE")
-dev_admin = os.getenv("ADMIN_ROLE")
-dev_member = os.getenv("MEMBER_ROLE")
-dev_guild = os.getenv("GUILD_ID")
-asyncio.sleep(10)
-print("")
-print("")
-print("")
-print("")
-print("Moderator:" + dev_mod)
-print("Admin:" + dev_admin)
-print("Member:" + dev_member)
-print("Guild:" + dev_guild)
 
 client.run(token)

@@ -1,10 +1,13 @@
 import discord
+from discord import guild
 from discord.ext import commands
 import random
 import asyncio 
 import datetime
 from discord_slash import cog_ext, SlashContext
 import os
+
+from discord_slash.utils.manage_commands import get_guild_command_permissions
 
 class Fun(commands.Cog):
 
@@ -116,6 +119,23 @@ class Fun(commands.Cog):
     async def _embed(self, ctx: SlashContext, *,str, content: str):
         embed = discord.Embed(title="Embed Creator", description=content, color=0x00ff00)
         await ctx.send(embed=embed)
+
+    @cog_ext.cog_slash(name="Decode", description="Decode a message", guild_ids=[851785650230919178])
+    async def _decode(ctx: SlashContext, *, message: str):
+        base64_string = message
+        base64_bytes = base64_string.encode("ascii")
+        decoded_bytes = base64.b64decode(base64_bytes)
+        decoded_string = decoded_bytes.decode("ascii")
+        await ctx.reply(decoded_string)
+
+
+    @cog_ext.cog_slash(name="Encode", description="Encode a message", guild_ids=[851785650230919178])
+    async def encode(ctx: SlashContext, *, message: str):
+        message_bytes = message.encode("ascii")
+
+        base64_bytes = base64.b64encode(message_bytes)
+        encoded_string = base64_bytes.decode("ascii")
+        await ctx.reply(encoded_string)
 
 def setup(client):
     client.add_cog(Fun(client))
