@@ -17,8 +17,7 @@ print("please use the file named \"bot.py\"")
 
 logging.basicConfig (level=logging.INFO)
 
-load_dotenv()
-
+# Load everything from my system variables(Set on my pc, won't work for you.)
 token = os.environ["TOKEN"]
 prefix = os.environ["PREFIX"]
 member = os.environ["MEMBER_ID"]

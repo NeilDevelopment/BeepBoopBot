@@ -6,7 +6,7 @@ import asyncio
 import datetime
 from discord_slash import cog_ext, SlashContext
 import os
-
+import base64
 from discord_slash.utils.manage_commands import get_guild_command_permissions
 
 class Fun(commands.Cog):
