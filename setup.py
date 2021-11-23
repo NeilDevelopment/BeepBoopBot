@@ -22,18 +22,20 @@ def main():
     info_recheck = input("Is that information correct? [Y/N]\n")
     if info_recheck == "Y" or info_recheck == "y":
         print("Please wait while the bot is being setup.")
-
-    with open(".env", "w") as env:
-        env.write(f"TOKEN={token}" + "\n")
-        env.write(f"PREFIX={prefix}" + "\n")
-        env.write(f"MEMBER_ROLE={member}" + "\n")
-        env.write(f"MODERATOR_ROLE={mod}" + "\n")
-        env.write(f"ADMIN_ROLE={admin}" + "\n")
-        env.write(f"GUILD_ID={guild}")
+        with open(".env", "w") as env:
+            env.write(f"TOKEN={token}" + "\n")
+            env.write(f"PREFIX={prefix}" + "\n")
+            env.write(f"MEMBER_ROLE={member}" + "\n")
+            env.write(f"MODERATOR_ROLE={mod}" + "\n")
+            env.write(f"ADMIN_ROLE={admin}" + "\n")
+            env.write(f"GUILD_ID={guild}")
         print("Setup complete.")
 
-    time.sleep(5)
-    exit()
+        time.sleep(5)
+        exit()
+    if info_recheck == "N" or info_recheck == "n":
+        print("Please restart the setup.")
+        exit()
 
 
 if __name__ == "__main__":
