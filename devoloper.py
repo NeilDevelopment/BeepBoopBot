@@ -15,7 +15,9 @@ print("You are using the devolopment version of the bot.")
 print("We do not suggest this, if you would like to use this in production")
 print("please use the file named \"bot.py\"")
 
-logging.basicConfig (level=logging.INFO)
+#logging.basicConfig (level=logging.INFO)
+
+load_dotenv()
 
 # Load everything from my system variables(Set on my pc, won't work for you.)
 token = os.environ["TOKEN"]
@@ -24,6 +26,7 @@ member = os.environ["MEMBER_ID"]
 mod = os.environ["MOD"]
 admin = os.environ["ADMIN"]
 guild = os.environ["GUILD"]
+logs = os.environ["LOG_CHANNEL"]
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -41,11 +44,30 @@ async def on_ready():
     print("Admin:" + admin)
     print("Member:" + member)
     print("Guild:" + guild)
+    print("Log Channel:" + logs)
+
+
+@client.command()
+async def reload(ctx, *, extension):
+    client.unload_extension(f"cogs.{extension}")
+    client.load_extension(f"cogs.{extension}")
+    await ctx.send("Reloaded " + extension)
+
+@client.command()
+async def load(ctx, *, extension):
+    client.load_extension(f"cogs.{extension}")
+    await ctx.send("Loaded " + extension)
+
+@client.command()
+async def unload(ctx, *, extension):
+    client.unload_extension(f"cogs.{extension}")
+    await ctx.send("Unloaded " + extension)
 
 
 #client.load_extension("cogs.moderation")
 #client.load_extension("cogs.fun")
 #client.load_extension("cogs.info")
 #client.load_extension("cogs.giveaway")
+#client.load_extension("cogs.logs")
 
 client.run(token)

@@ -10,6 +10,7 @@ def main():
     mod = input("Please enter your Moderator ID\n")
     admin = input("Please enter your Admin ID\n")
     guild = input("Please enter your Guild ID\n")
+    log_channel = input("Please enter the channel ID for logs. (If you do not want to enable logs please press ENTER)")
     print("\n\n")
     print("Confirm with these values.")
     time.sleep(2)
@@ -19,6 +20,7 @@ def main():
     print(f"Moderator Role ID: {mod}")
     print(f"Admin Role ID: {admin}")
     print(f"Guild ID: {guild}")
+    print(f"Log Channel ID: {log_channel}")
     info_recheck = input("Is that information correct? [Y/N]\n")
     if info_recheck == "Y" or info_recheck == "y":
         print("Please wait while the bot is being setup.")
@@ -28,7 +30,8 @@ def main():
             env.write(f"MEMBER_ROLE={member}" + "\n")
             env.write(f"MODERATOR_ROLE={mod}" + "\n")
             env.write(f"ADMIN_ROLE={admin}" + "\n")
-            env.write(f"GUILD_ID={guild}")
+            env.write(f"GUILD_ID={guild}" + "\n")
+            env.write(f"LOG={log_channel}")
         print("Setup complete.")
 
         time.sleep(5)

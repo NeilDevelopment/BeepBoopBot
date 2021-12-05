@@ -20,6 +20,7 @@ prefix = os.getenv("PREFIX")
 member = os.getenv("MEMBER_ROLE")
 # Loads the Admin role ID from the ENV file.
 moderator = os.getenv("MODERATOR_ROLE")
+log_channel = os.getenv("LOG_CHANNEL")
 print("Loaded ENV file.")
 
 client = commands.Bot(command_prefix=prefix)
