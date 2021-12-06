@@ -1,5 +1,6 @@
 import discord
 from discord import guild
+from discord.colour import Color
 from discord.ext import commands
 import random
 import asyncio 
@@ -115,6 +116,18 @@ class Fun(commands.Cog):
             embed.add_field(name = "Guild created at: ", value = str(ctx.guild.created_at.strftime("%a, %d %B %Y, %I:%M %p UTC")))
             await ctx.send(embed =  embed)
 
+    @cog_ext.cog_slash(name="Embed", description="Embed Creator", guild_ids=[851785650230919178])
+    async def _embed(self, ctx: SlashContext, title, description, channel: discord.TextChannel):
+            sending = discord.Embed(title=f"Sending Embed to #{channel.name}", color=discord.Color.blue())
+            msg = await ctx.send(embed=sending)
+            embed = discord.Embed(title=title, description=description, color=0x00ff00)
+            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            embed = discord.Embed(title=title, description=description, color=0x00ff00)
+            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            await asyncio.sleep(1) # So people can't spam and get the bot rate limited
+            await channel.send(embed=embed)
+            done_embed = discord.Embed(title=f"Send Embed to #{channel.name}", color=discord.Color.green())
+            await msg.edit(embed=done_embed)
 
 def setup(client):
     client.add_cog(Fun(client))
