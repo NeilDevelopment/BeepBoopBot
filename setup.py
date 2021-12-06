@@ -1,4 +1,5 @@
 import time
+import os
 
 def main():
     print("Welcome to the BeepBoopBot setup.")
@@ -31,11 +32,16 @@ def main():
             env.write(f"MODERATOR_ROLE={mod}" + "\n")
             env.write(f"ADMIN_ROLE={admin}" + "\n")
             env.write(f"GUILD_ID={guild}" + "\n")
-            env.write(f"LOG={log_channel}")
-        print("Setup complete.")
-
-        time.sleep(5)
-        exit()
+            env.write(f"LOG_CHANNEL={log_channel}")
+        if log_channel == "":
+            os.chdir("cogs")
+            os.remove("logs.py")
+            os.chdir("..")
+            print("File logs.py removed.")
+        else:
+            print("Setup complete.")
+            time.sleep(5)
+            exit()
     if info_recheck == "N" or info_recheck == "n":
         print("Please restart the setup.")
         exit()
