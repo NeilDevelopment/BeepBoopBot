@@ -38,6 +38,8 @@ def main():
             os.remove("logs.py")
             os.chdir("..")
             print("File logs.py removed.")
+            time.sleep(5)
+            exit()
         else:
             print("Setup complete.")
             time.sleep(5)
