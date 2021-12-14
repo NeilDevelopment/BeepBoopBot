@@ -11,7 +11,7 @@ def main():
     mod = input("Please enter your Moderator ID\n")
     admin = input("Please enter your Admin ID\n")
     guild = input("Please enter your Guild ID\n")
-    log_channel = input("Please enter the channel ID for logs. (If you do not want to enable logs please press ENTER)")
+    log_channel = input("Please enter the channel ID for logs. (If you do not want to enable logs please press ENTER)\n")
     print("\n\n")
     print("Confirm with these values.")
     time.sleep(2)
