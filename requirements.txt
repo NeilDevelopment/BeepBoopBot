@@ -1,5 +1,4 @@
-discord
+py-cord
 python-dotenv
 asyncio
 datetime
-discord-py-interactions
