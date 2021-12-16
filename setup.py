@@ -1,9 +1,19 @@
 import time
 import os
 
+def setup():
+    print("...")
+
+
+def tutorial():
+    print(".....")
+
+def setup_and_tutorial():
+    print("...")
+
 def main():
     print("Welcome to the BeepBoopBot setup.")
-    print("If you do not know how to get this information please go to \nhttps://u.neildevolopment.ml/beepboopbot/wiki/configuration")
+    main = input("Please chose from the following options:\n[1] Tutorial\n[2] Setup\n[3] Both\n")
     print("\n")
     token = input("Please enter your Bot token\n")
     prefix = input("Please enter your Bot prefix\n")
