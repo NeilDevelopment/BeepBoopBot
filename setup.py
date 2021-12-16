@@ -2,18 +2,6 @@ import time
 import os
 
 def setup():
-    print("...")
-
-
-def tutorial():
-    print(".....")
-
-def setup_and_tutorial():
-    print("...")
-
-def main():
-    print("Welcome to the BeepBoopBot setup.")
-    main = input("Please chose from the following options:\n[1] Tutorial\n[2] Setup\n[3] Both\n")
     print("\n")
     token = input("Please enter your Bot token\n")
     prefix = input("Please enter your Bot prefix\n")
@@ -57,6 +45,27 @@ def main():
     if info_recheck == "N" or info_recheck == "n":
         print("Please restart the setup.")
         exit()
+
+def tutorial():
+    print("Soon")
+
+def setup_and_tutorial():
+    print("Soon")
+
+def main():
+    print("Welcome to the BeepBoopBot setup.")
+    main = input("Please chose from the following options:\n[1] Tutorial\n[2] Setup\n[3] Both\n[4] Exit\n")
+    if main == "1":
+        tutorial()
+    if main == "2":
+        setup()
+    if main == "3":
+        setup_and_tutorial()
+    if main == "4":
+        exit()
+    else:
+        print("Please enter a valid option.")
+        main()
 
 
 if __name__ == "__main__":
