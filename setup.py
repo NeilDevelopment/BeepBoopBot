@@ -47,7 +47,19 @@ def setup():
         exit()
 
 def tutorial():
-    print("Soon")
+    print("Welcome to the BeepBoopBot Tutorial! We will explain how to get every information needed for the setup here.")
+    print("Token: Go to https://discord.com/developers/applications and click on your Application\n then click on the 'Bot' in left sidebar, click on 'Copy' under your Bot's name\n")
+    print("Prefix: Enter the prefix you want for your bot\n")
+    print("Member Role: Go to the Discord App, Right click on your Member role and click 'Copy ID'.\n")
+    print("Moderator Role: Go to the Discord App, Right click on your Moderator role and click 'Copy ID'.\n")
+    print("Admin Role: Go to the Discord App, Right click on your Admin role and click 'Copy ID'.\n")
+    print("Guild ID: Go to the Discord App, Right click on your Guild and click 'Copy ID'.\n")
+    print("Log Channel ID: Go to the Discord App, Right click on your Log Channel and click 'Copy ID'.\n")
+    setup_after_tutorial = input("Do you want to go back to the setup? [Y/N]\n")
+    if setup_after_tutorial == "Y" or setup_after_tutorial == "y":
+        main()
+    else:
+        exit()
 
 def setup_and_tutorial():
     print("Soon")
