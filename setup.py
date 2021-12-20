@@ -47,8 +47,8 @@ def setup():
         exit()
 
 def tutorial():
-    print("Welcome to the BeepBoopBot Tutorial! We will explain how to get every information needed for the setup here.")
-    print("Token: Go to https://discord.com/developers/applications and click on your Application\n then click on the 'Bot' in left sidebar, click on 'Copy' under your Bot's name\n")
+    print("Welcome to the BeepBoopBot Tutorial! We will explain how to get                                                                                                                                                                                                                                                                                                                                               information needed for the setup here.")
+    print("\nToken: Go to https://discord.com/developers/applications and click on your Application\nthen click on the 'Bot' in left sidebar, click on 'Copy' under your Bot's name\n")
     print("Prefix: Enter the prefix you want for your bot\n")
     print("Member Role: Go to the Discord App, Right click on your Member role and click 'Copy ID'.\n")
     print("Moderator Role: Go to the Discord App, Right click on your Moderator role and click 'Copy ID'.\n")
@@ -62,7 +62,49 @@ def tutorial():
         exit()
 
 def setup_and_tutorial():
-    print("Soon")
+    print("\n")
+    token = input("Please enter your Bot token\nSteps: Go to https://discord.com/developers/applications and click on your Application\nthen click on the 'Bot' in left sidebar, click on 'Copy' under your Bot's name\n")
+    prefix = input("Please enter your Bot prefix\nSteps: Enter the prefix you want for your bot\n")
+    member = input("Please enter your Member ID\nSteps: Go to the Discord App, Right click on your Member role and click 'Copy ID'.\n")
+    mod = input("Please enter your Moderator ID\nSteps: Go to the Discord App, Right click on your Moderator role and click 'Copy ID'.\n")
+    admin = input("Please enter your Admin ID\nSteps: Go to the Discord App, Right click on your Admin role and click 'Copy ID'.\n")
+    guild = input("Please enter your Guild ID\nSteps: Go to the Discord App, Right click on your Guild and click 'Copy ID'.\n")
+    log_channel = input("Please enter the channel ID for logs. (Press ENTER to disable logs)\nSteps: Go to the Discord App, Right click on your Log Channel and click 'Copy ID'.\n")
+    print("\n\n")
+    print("Confirm with these values.")
+    time.sleep(2)
+    print(f"Token: {token}")
+    print(f"Prefix: {prefix}")
+    print(f"Member Role ID: {member}")
+    print(f"Moderator Role ID: {mod}")
+    print(f"Admin Role ID: {admin}")
+    print(f"Guild ID: {guild}")
+    print(f"Log Channel ID: {log_channel}")
+    info_recheck = input("Is that information correct? [Y/N]\n")
+    if info_recheck == "Y" or info_recheck == "y":
+        print("Please wait while the bot is being setup.")
+        with open(".env", "w") as env:
+            env.write(f"TOKEN={token}" + "\n")
+            env.write(f"PREFIX={prefix}" + "\n")
+            env.write(f"MEMBER_ROLE={member}" + "\n")
+            env.write(f"MODERATOR_ROLE={mod}" + "\n")
+            env.write(f"ADMIN_ROLE={admin}" + "\n")
+            env.write(f"GUILD_ID={guild}" + "\n")
+            env.write(f"LOG_CHANNEL={log_channel}")
+        if log_channel == "":
+            os.chdir("cogs")
+            os.remove("logs.py")
+            os.chdir("..")
+            print("File logs.py removed.")
+            time.sleep(5)
+            exit()
+        else:
+            print("Setup complete.")
+            time.sleep(5)
+            exit()
+    if info_recheck == "N" or info_recheck == "n":
+        print("Please restart the setup.")
+        exit()
 
 def main():
     print("Welcome to the BeepBoopBot setup.")
