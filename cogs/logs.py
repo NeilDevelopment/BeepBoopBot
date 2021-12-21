@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+from discord.gateway import DiscordWebSocket
 from dotenv import load_dotenv
 import datetime
 
