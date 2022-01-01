@@ -4,9 +4,17 @@ This page is currently in development. Please come back here later!
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Setup
+**Note:** This bot is going to run on your own machine or a server.
+To keep it online, you need to keep the bot process running.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. Create a bot on the [Discord Developer Portal](https://discordapp.com/developers/)
+2. Turn on **Server Members Intent** in the bot's settings page on the developer portal 
+3. Install Python 
+    * All python versions above 3.6.0 should work.
+4. Download the lastest bot release [here](https://u.neildevolopment.ml/beepboopbot/1.4) (click on "Source code (zip)")
+5. Extract the downloaded Zip file to a new folder
+6. Follow Configuration Steps
 
 ```markdown
 Syntax highlighted code block
