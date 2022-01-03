@@ -1,9 +1,15 @@
+import os
+print("Checking your dependencies...")
+os.system("python3 dependencie_checker.py")
+print("All dependencie are installed.")
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
 from discord_slash import SlashCommand, SlashContext
 import asyncio
+import sys
+import subprocess
 
 print("--------------------------")
 print("Beep Boop Bot is starting.")
