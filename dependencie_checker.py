@@ -18,20 +18,20 @@ if "python-dotenv" not in installed_packages:
     os.remove("logs.txt")
     print("Installed python-dotenv")
 else:
-    print("py-cord is already installed")
+    print("python-dotenv is already installed")
 if "asyncio" not in installed_packages:
     print("asyncio is missing, installing...")
     os.system("pip3 install asyncio > logs.txt")
     os.remove("logs.txt")
     print("Installed asyncio")
 else:
-    print("py-cord is already installed")
+    print("asyncio is already installed")
 if "datetime" not in installed_packages:
     print("datetime is missing, installing...")
     os.system("pip3 install datetime > logs.txt")
     os.remove("logs.txt")
     print("Installed datetime")
 else:
-    print("py-cord is already installed")
+    print("datetime is already installed")
 print("Installed all dependencies, now starting up the bot.")
 os.remove("dependencie_checker.py")
