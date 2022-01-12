@@ -1,11 +1,6 @@
 import discord
 from discord.ext import commands
-from discord_slash.utils.manage_components import create_button, create_actionrow
-from discord_slash.utils.manage_components import create_select, create_select_option
-from discord_slash.model import ButtonStyle
-from discord_slash.utils.manage_components import wait_for_component
-from discord_slash.utils.manage_commands import create_option, create_choice
-from discord_slash import cog_ext, SlashContext
+from discord.commands import slash_command
 import datetime
 
 class Info(commands.Cog):
@@ -13,8 +8,8 @@ class Info(commands.Cog):
     def __init__(self, client):
         self.bot = client
 
-    @cog_ext.cog_slash(name="help", description="Help command.")
-    async def _help(self, ctx: SlashContext):
+    @slash_command(guild_ids=[851785650230919178])
+    async def help(self, ctx: SlashContext):
         select = create_select(
             options=[
                 create_select_option("Moderation", value="Moderation"),
@@ -36,7 +31,7 @@ class Info(commands.Cog):
                     value=f"Contains all the fun commands.", inline=False)
         await ctx.send(embed=e, components=[create_actionrow(select)])
 
-    @cog_ext.cog_slash(name="version", description="Check the version of the bot")
+    @slash_command()
     async def _version(self, ctx: SlashContext):
         await ctx.send("Running version 1.2 of BeepBoopBot.")
 

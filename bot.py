@@ -5,11 +5,15 @@ print("All dependencie are installed.")
 
 import discord
 from discord.ext import commands
+from discord.commands import slash_command
 from dotenv import load_dotenv
-from discord_slash import SlashCommand, SlashContext
 import asyncio
 import sys
 import subprocess
+import logging
+
+logging.basicConfig (level=logging.INFO)
+
 
 print("--------------------------")
 print("Beep Boop Bot is starting.")
@@ -33,7 +37,6 @@ client = commands.Bot(command_prefix=prefix)
 # Removes the default help command.
 client.remove_command('help')
 # Main slash commands setup.
-slash = SlashCommand(client, sync_commands=True, sync_on_cog_reload=True)
 
 @client.event
 async def on_connect():
@@ -50,5 +53,4 @@ for filename in os.listdir('./cogs'):
 	if filename.endswith(".py"):
 		client.load_extension(f'cogs.{filename[:-3]}')
 		print(f"\"{filename[:-3]}\" cog has been loaded.")
-
 client.run(token)
