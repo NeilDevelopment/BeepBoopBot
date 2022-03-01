@@ -13,7 +13,7 @@ class Logs(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         embed = discord.Embed(title=f"Message deleted in {message.channel.name}", description=f"{message.content}", color=0xc25252, timestamp=datetime.datetime.utcnow())
-        embed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+        embed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar.url}")
         embed.set_footer(text=f"{message.author.id}")
         channel = self.bot.get_channel(int(self.log_channel))
         await channel.send(embed=embed)
@@ -21,7 +21,7 @@ class Logs(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, message_before, message_after):
             embed = discord.Embed(title=f"Message edited in {message_before.channel.name}", description=f"**Before:** {message_before.content}\n**+After:** {message_after.content}", color=discord.Color.blue(), timestamp=datetime.datetime.utcnow())
-            embed.set_author(name=f"{message_before.author.name}", icon_url=f"{message_before.author.avatar_url}")
+            embed.set_author(name=f"{message_before.author.name}", icon_url=f"{message_before.author.avatar.url}")
             embed.set_footer(text=f"ID: {message_after.author.id}")
             channel = self.bot.get_channel(int(self.log_channel))
             await channel.send(embed=embed)

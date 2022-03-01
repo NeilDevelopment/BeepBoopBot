@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
+from discord.commands import \
+    slash_command
 import os 
 import random
 import asyncio
-import discord_slash
-from discord_slash import cog_ext, SlashContext
 
 class Giveaway(commands.Cog):
 
@@ -12,15 +12,12 @@ class Giveaway(commands.Cog):
         self.bot = client
     
     admin_role = os.getenv("ADMIN_ROLE")    
-    guild_id = os.getenv("GUILD_ID")
+    g_id = os.getenv("GUILD_ID")
+    guild_id = int(g_id)
 
-    @cog_ext.cog_slash(name="giveaway", description="Start a Giveaway!", default_permission=False, permissions={
-    guild_id: [
-        discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
-    ]
-})
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(ban_members=True)
-    async def _giveaway(self, ctx: SlashContext, channel: discord.TextChannel, time, prize):
+    async def giveaway(self, ctx, channel: discord.TextChannel, time, prize):
         def convert(time):
             pos = ["s","m","h","d"]
 
@@ -40,13 +37,13 @@ class Giveaway(commands.Cog):
 
         timeconv = convert(time)
         if time == -1:
-            await ctx.send(f"You didn't answer the time with a proper unit. Use (s|m|h|d) next time!")
+            await ctx.respond(f"You didn't answer the time with a proper unit. Use (s|m|h|d) next time!")
             return
         elif time == -2:
-            await ctx.send(f"The time must be an integer. Please enter an integer next time")
+            await ctx.respond(f"The time must be an integer. Please enter an integer next time")
             return            
 
-        await ctx.send(f"The Giveaway will be in {channel.mention} and will last {time}!")
+        await ctx.respond(f"The Giveaway will be in {channel.mention} and will last {time}!")
 
 
         embed = discord.Embed(title = "Giveaway!", description = f"Prize: {prize}", color = ctx.author.color)
