@@ -1,9 +1,14 @@
 from colorama import Fore, Back, Style
 import pyfiglet
 import os
+import platform
 
 print(Fore.YELLOW + "Checking your dependencies...")
-os.system("python3 dependencie_checker.py")
+operatingsystem = platform.system()
+if operatingsystem != "Windows":
+	os.system("python3 dependencie_checker.py")
+else:
+	os.system("python dependencie_checker.py")
 print(Fore.GREEN + "All dependencie are installed.")
 
 ascii_text = pyfiglet.figlet_format("BeepBoopBot")

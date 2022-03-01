@@ -6,7 +6,6 @@ import subprocess
 
 print("Trying to remove dependencies using pip.")
 print("This may take a while.")
-asyncio.sleep(5)
 os.system("pip uninstall python-dotenv -y")
 os.system("pip uninstall datetime -y")
 os.system("pip uninstall asyncio -y")
