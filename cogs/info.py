@@ -40,7 +40,7 @@ class Info(commands.Cog):
 
     @commands.slash_command(guild_ids=[guild_id])
     async def version(self, ctx):
-        await ctx.respond("Running version 1.2 of BeepBoopBot.")
+        await ctx.respond("Running version 1.5 of BeepBoopBot.")
 
     # @commands.Cog.listener()
     # async def on_component(self, ctx):
