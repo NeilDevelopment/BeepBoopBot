@@ -1,4 +1,0 @@
-git+git://github.com/Pycord-Development/pycord@master#egg=py-cord
-python-dotenv
-asyncio
-datetime
