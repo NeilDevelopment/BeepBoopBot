@@ -12,11 +12,8 @@ class timeout(commands.Cog):
     moderator_role = os.getenv("MODERATOR_ROLE")
 
     @commands.slash_command(guild_ids=[int(guild_id)])
-    async def avatar(self, ctx, *,  member: Option(discord.Member, "The user who you want to see the avatar of!", required=True)):
-        userAvatarUrl = member.avatar
-        embed=discord.Embed(title=f'{member} avatar!')
-        embed.setimage(url=userAvatarUrl)
-        await ctx.respond(embed=embed)
+    async def version(self, ctx):
+        await ctx.respond("Running version 2.0 of BeepBoopBot.")
 
 def setup(client):
     client.add_cog(timeout(client))

@@ -11,7 +11,7 @@ class embed(commands.Cog):
     guild_id = os.getenv("GUILD_ID")
     moderator_role = os.getenv("MODERATOR_ROLE")
 
-    @commands.slash_command(guild_ids=[guild_id])
+    @commands.slash_command(guild_ids=[int(guild_id)])
     async def embed(self, ctx, title: Option(str, "The title for the embed", required=True), description: Option(str, "The description for the embed", required=True), channel: Option(discord.TextChannel, "The channel to send the embed to", required=True)):
             sending = discord.Embed(title=f"Sending Embed to #{channel.name}", color=discord.Color.blue())
             await ctx.respond(embed=sending, ephemeral=True)

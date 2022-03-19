@@ -11,7 +11,7 @@ class slowmode(commands.Cog):
     guild_id = os.getenv("GUILD_ID")
     admin_role = os.getenv("ADMIN_ROLE")
 
-    @commands.slash_command(guild_ids=[guild_id])
+    @commands.slash_command(guild_ids=[int(guild_id)])
     async def slowmode(self, ctx, time: Option(int, "Time to change the slowmode to (s|m|h|d", default="No reason specified", required=False)):
         try:
             def convert(time):
