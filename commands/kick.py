@@ -14,9 +14,9 @@ class kick(commands.Cog):
 
     @commands.slash_command(guild_ids=[int(guild_id)])
     @commands.has_role(int(admin_role))
-    async def kick(self, ctx, member: Option(discord.Member, "The user to kick", default=None, required=True), reason: Option(str, "Reason for the ban", default="No reason specified", required=False)):
+    async def kick(self, ctx, member: Option(discord.Member, "The user to kick", default=None, required=True), reason: Option(str, "Reason for the kick", default="No reason specified", required=False)):
         if member:
-            await member.ban(reason=reason)
+            await member.kick(reason=reason)
             e = discord.Embed(title="Member kicked!", description=f"{member.mention} has been kicked for {reason}!", color=discord.Color.green())
             await ctx.respond(embed=e)
         else:
