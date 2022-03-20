@@ -20,4 +20,4 @@ class message_delete(commands.Cog):
         await channel.send(embed=embed)
 
 def setup(client):
-    client.add_cog(timmessage_deleteeout(client))
+    client.add_cog(message_delete(client))
