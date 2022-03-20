@@ -6,6 +6,7 @@ import pyfiglet, asyncio, time, platform
 ascii_text = pyfiglet.figlet_format("BeepBoopBot V2")
 print(Fore.CYAN + ascii_text)
 time.sleep(3)
+print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
 """[Disabled] Dependencie checker"""
 # print(Fore.YELLOW + "Checking your dependencies...")
 # operatingsystem = platform.system()
@@ -47,5 +48,4 @@ async def on_application_command_error(ctx, error):
         em = discord.Embed(title="No permission :x:", description="You don't have enough permission(s) to execute that command!", color=discord.Color.red())
         await ctx.respond(embed=em)
 
-print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
 client.run(token)
