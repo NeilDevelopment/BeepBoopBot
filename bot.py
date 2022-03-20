@@ -35,6 +35,12 @@ for filename in os.listdir('./commands'):
         client.load_extension(f'commands.{filename[:-3]}')
         print(Fore.BLUE + "[INFO] " + Fore.MAGENTA + "(COMMANDS) " + Fore.WHITE + f"Loaded \"{filename[:-3]}\" command")
 
+for filename in os.listdir('./events'):
+    if filename.endswith(".py"):
+        client.load_extension(f'events.{filename[:-3]}')
+        print(Fore.BLUE + "[INFO] " + Fore.MAGENTA + "(EVENTS) " + Fore.WHITE + f"Loaded \"on_{filename[:-3]}\" event")
+
+
 @client.event
 async def on_application_command_error(ctx, error):
     if isinstance(error,commands.CheckFailure):
