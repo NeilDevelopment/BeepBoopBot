@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.commands import \
     slash_command, Option
 
-class timeout(commands.Cog):
+class channelinfo(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -24,4 +24,4 @@ class timeout(commands.Cog):
         await ctx.respond(embed = embed)
 
 def setup(client):
-    client.add_cog(timeout(client))
+    client.add_cog(channelinfo(client))
