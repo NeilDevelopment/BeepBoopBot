@@ -1,26 +1,60 @@
 """Loader"""
 from click import command
 from colorama import Fore, Style
-import pyfiglet, asyncio, time, platform
+import pyfiglet, time, platform, subprocess, sys
 
 ascii_text = pyfiglet.figlet_format("BeepBoopBot V2")
 print(Fore.CYAN + ascii_text)
 time.sleep(3)
-print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
-"""[Disabled] Dependencie checker"""
-# print(Fore.YELLOW + "Checking your dependencies...")
-# operatingsystem = platform.system()
-# if operatingsystem != "Windows":
-# 	os.system("python3 dependencie_checker.py")
-# else:
-# 	os.system("python dependencie_checker.py")
-# print(Fore.GREEN + "All dependencie are installed.")
+"""Dependencie checker"""
+operatingsystem = platform.system()
 
+reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
+installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
+if 'py-cord' not in installed_packages:
+    if operatingsystem != "Windows:":
+        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip install py-cord==2.0.0b1\n" + Fore.BLUE + "Please make sure to have the " + Fore.GREEN + "\"==2.0.0\"" + Fore.BLUE + " or it won't work!") 
+        exit()
+    else:
+        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip3 install py-cord==2.0.0b1") 
+        exit()
+else:
+    pass
+if "python-dotenv" not in installed_packages:
+    if operatingsystem != "Windows:":
+        print(Fore.RED + "Module \"python-dotenv\" is missing! Install it by doing pip install python-dotenv") 
+        exit()
+    else:
+        print(Fore.RED + "Module \"python-dotenv\" is missing! Install it by doing pip3 install python-dotenv") 
+        exit()
+else:
+    pass
+if "asyncio" not in installed_packages:
+    if operatingsystem != "Windows:":
+        print(Fore.RED + "Module \"asyncio\" is missing! Install it by doing pip install asyncio") 
+        exit()
+    else:
+        print(Fore.RED + "Module \"asyncio\" is missing! Install it by doing pip3 install asyncio") 
+        exit()
+else:
+    pass
+if "datetime" not in installed_packages:
+    if operatingsystem != "Windows:":
+        print(Fore.RED + "Module \"datetime\" is missing! Install it by doing pip install datetime") 
+        exit()
+    else:
+        print(Fore.RED + "Module \"datetime\" is missing! Install it by doing pip3 install datetime") 
+        exit()
+else:
+    pass
+print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
+print(Style.RESET_ALL)
 import discord, os
 from discord.commands import \
     slash_command
 from discord.ext import commands
 from dotenv import load_dotenv
+
 load_dotenv()
 token = os.getenv("TOKEN")
 guild_id = os.getenv("GUILD_ID")
