@@ -16,7 +16,7 @@ class message_delete(commands.Cog):
         embed = discord.Embed(title=f"Message deleted in {message.channel.name}", description=f"{message.content}", color=0xc25252, timestamp=datetime.datetime.utcnow())
         embed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar.url}")
         embed.set_footer(text=f"{message.author.id}")
-        channel = self.bot.get_channel(int(self.log_channel))
+        channel = self.client.get_channel(int(self.log_channel))
         await channel.send(embed=embed)
 
 def setup(client):

@@ -38,7 +38,7 @@ if "asyncio" not in installed_packages:
         exit()
 else:
     pass
-if "datetime" not in installed_packages:
+if "DateTime" not in installed_packages:
     if operatingsystem != "Windows:":
         print(Fore.RED + "Module \"datetime\" is missing! Install it by doing pip install datetime") 
         exit()
@@ -48,7 +48,6 @@ if "datetime" not in installed_packages:
 else:
     pass
 print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
-print(Style.RESET_ALL)
 import discord, os
 from discord.commands import \
     slash_command
@@ -59,7 +58,7 @@ load_dotenv()
 token = os.getenv("TOKEN")
 guild_id = os.getenv("GUILD_ID")
 
-client = commands.Bot(command_prefix=None, help_command=None)
+client = commands.Bot(help_command=None)
 
 @client.event
 async def on_ready():

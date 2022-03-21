@@ -60,7 +60,7 @@ class giveaway(commands.Cog):
 
 
         users = await new_msg.reactions[0].users().flatten()
-        users.pop(users.index(self.bot.user))
+        users.pop(users.index(self.client.user))
 
         winner = random.choice(users)
 
