@@ -72,8 +72,9 @@ def dependencies(*, install):
         else:
             pass
 def all():
-    dependencies()
+    dependencies(install=True)
     variables()
+    dependencies(install=False)
 
 if __name__ == "__main__":
     all()
