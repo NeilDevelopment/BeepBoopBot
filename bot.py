@@ -57,6 +57,7 @@ from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv("TOKEN")
 guild_id = os.getenv("GUILD_ID")
+dev_mode = os.getenv("DEV_MODE")
 
 client = commands.Bot(help_command=None)
 
@@ -74,6 +75,13 @@ for filename in os.listdir('./events'):
         client.load_extension(f'events.{filename[:-3]}')
         print(Fore.BLUE + "[INFO] " + Fore.MAGENTA + "(EVENTS) " + Fore.WHITE + f"Loaded \"on_{filename[:-3]}\" event")
 
+if dev_mode == "YES":
+    for filename in os.listdir('./developer'):
+        if filename.endswith(".py"):
+            client.load_extension(f'developer.{filename[:-3]}')
+            print(Fore.BLUE + "[INFO] " + Fore.MAGENTA + "(DEVELOPER) " + Fore.WHITE + f"Loaded \"{filename[:-3]}\" cog")
+else:
+    pass
 
 @client.event
 async def on_application_command_error(ctx, error):
