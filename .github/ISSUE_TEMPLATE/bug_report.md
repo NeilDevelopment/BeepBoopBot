@@ -1,9 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG]"
+title: ""
 labels: bug
-assignees: Neilisop
+assignees: ItsNeil17
 
 ---
 
@@ -26,7 +26,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Bot Version [e.g. 0.6]
+ - Bot Version [e.g. 1.5]
 
 **Additional context(Optional)**
 Add any other context about the problem here.
