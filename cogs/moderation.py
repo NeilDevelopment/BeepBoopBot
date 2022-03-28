@@ -1,82 +1,84 @@
 import discord
 from discord.ext import commands
-import discord_slash
-from discord_slash import cog_ext, SlashContext
 import os 
 from dotenv import load_dotenv
 import json
+import datetime
+from discord.commands import \
+    slash_command
+import traceback
 
 class Moderation(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
+        admin_role = os.getenv("ADMIN_ROLE")    
+    g_id = os.getenv("GUILD_ID")
+    guild_id = int(g_id)
 
-    admin_role = os.getenv("ADMIN_ROLE")    
-    guild_id = os.getenv("GUILD_ID")
-
-    @cog_ext.cog_slash(name="nick", description="Change someone's nickname.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(change_nickname=True)
-    async def _nick(self, ctx, member: discord.Member, name):
+    async def nick(self, ctx, member: discord.Member, name):
         await member.edit(nick=name)
         embed = discord.Embed(title='Nick Name Successfully Changed!')
-        await ctx.send(embed=embed)
+        await ctx.respond(embed=embed)
 
-    @cog_ext.cog_slash(name="clear", description="Clear messages.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(manage_messages=True)
-    async def _clear(self, ctx, amount: int):
+    async def clear(self, ctx, amount: int):
         await ctx.message.delete()
-        await ctx.send("Clearing messages, this may take a while..", delete_after=10)
+        await ctx.respond("Clearing messages, this may take a while..", delete_after=10)
         await ctx.channel.purge(limit=amount)
-        await ctx.send(f'{amount} messages has been cleared', delete_after=5)
+        await ctx.respond(f'{amount} messages has been cleared', delete_after=5)
 
-    @cog_ext.cog_slash(name="slowmode", description="Set slowmode.")
-    async def _slowmode(self, ctx, time: int):
+    @commands.slash_command(guild_ids=[guild_id])
+    async def slowmode(self, ctx, time: int):
         try:
             if time == 0:
                 embed = discord.Embed(title='Slowmode turned off')
-                await ctx.send(embed=embed)
+                await ctx.respond(embed=embed)
                 await ctx.channel.edit(slowmode_delay=0)
             if time == "off":
                 embed = discord.Embed(title='Slowmode turned off')
-                await ctx.send(embed=embed)
+                await ctx.respond(embed=embed)
                 await ctx.channel.edit(slowmode_delay=0)
             elif time > 21600:
                 embed = discord.Embed(
                     title='You cannot have a slowmode above 6 hours..')
-                await ctx.send(embed=embed)
+                await ctx.respond(embed=embed)
             else:
                 await ctx.channel.edit(slowmode_delay=time)
                 embed = discord.Embed(title=f'Slowmode set to {time} seconds.')
-                await ctx.send(embed=embed)
-        except Exception:
+                await ctx.respond(embed=embed)
+        except Exception:   
             traceback.print_exc()
 
-    @cog_ext.cog_slash(name="softban", description="Softban someone.")
-    async def _softban(self, ctx, member: discord.Member, *, reason='No reason provided'):
+    @commands.slash_command(guild_ids=[guild_id])
+    async def softban(self, ctx, member: discord.Member, *, reason='No reason provided'):
         await member.ban(reason=reason)
         await member.unban(reason=reason)
         embed = discord.Embed(title=f'Successfully softbanned {member}')
-        await ctx.send(embed=embed)
+        await ctx.respond(embed=embed)
 
-    @cog_ext.cog_slash(name="ban", description="Ban someone.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(ban_members=True)
-    async def _ban(self, ctx, member: discord.Member = None, *, reason=None):
+    async def ban(self, ctx, member: discord.Member = None, *, reason=None):
         if member is None:
             em = discord.Embed(title='Please specify a member.')
-            await ctx.send(embed=em)
+            await ctx.respond(embed=em)
             return
         await member.ban(reason=reason)
         em = discord.Embed(title=f'You banned {member}')
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
         embed = discord.Embed(
-            title=f'You have been banned from {guild.name}', description=f'Banned by {member}')
+            title=f'You have been banned from {member.guild.name}', description=f'Banned by {member}')
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
-    @cog_ext.cog_slash(name="unban", description="Unban someone.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(ban_members=True)
-    async def _unban(self, ctx, *, member):
+    async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
 
@@ -86,27 +88,27 @@ class Moderation(commands.Cog):
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 em = discord.Embed(title=f'You Unbanned {user.mention}')
-                await ctx.send(embed=em)
+                await ctx.respond(embed=em)
                 return
 
-    @cog_ext.cog_slash(name="kick", description="Kick someone.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(administrator=True)
-    async def _kick(self, ctx, member: discord.Member = None, *, reason='No reason provided'):
+    async def kick(self, ctx, member: discord.Member = None, *, reason='No reason provided'):
         if not member:
             em = discord.Embed(title='Please specify a member.')
-            await ctx.send(embed=em)
+            await ctx.respond(embed=em)
             return
         await member.kick()
         em = discord.Embed(title=f'You kicked {member}')
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
         embed = discord.Embed(
             title=f'You have been kicked from {ctx.guild.name}', description=f'Kicked by {member}')
         embed.add_field(name='Reason:', value=f'{reason}')
         await member.send(embed=embed)
 
-    @cog_ext.cog_slash(name="warn", description="Warn someone.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(kick_members=True)
-    async def _warn(self, ctx, member: discord.Member, *, reason="No reason Provided"):
+    async def warn(self, ctx, member: discord.Member, *, reason="No reason Provided"):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
         if str(ctx.guild.id) not in warns:
@@ -119,16 +121,16 @@ class Moderation(commands.Cog):
             warns[str(ctx.guild.id)][str(member.id)]["warnings"].append(reason)
         with open('warnings.json', 'w') as f:
             json.dump(warns, f)
-            await ctx.send(f"{member.mention} was warned for: {reason}")
+            await ctx.respond(f"{member.mention} was warned for: {reason}")
 
             embed = discord.Embed(
                 title=f'You have been warned in {ctx.guild.name} ', description=f'You received a warning from {ctx.author}')
             embed.add_field(name='Reason:', value=f'{reason}')
             await member.send(embed=embed)
 
-    @cog_ext.cog_slash(name="removewarn", description="Remove a warning.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(manage_guild=True)
-    async def _removewarn(self, ctx, member: discord.Member, num: int, *, reason='No reason provided.'):
+    async def removewarn(self, ctx, member: discord.Member, num: int, *, reason='No reason provided.'):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
 
@@ -137,14 +139,14 @@ class Moderation(commands.Cog):
         warns[str(ctx.guild.id)][str(member.id)]["warnings"].pop(num)
         with open('warnings.json', 'w') as f:
             json.dump(warns, f)
-            await ctx.send('Warn has been removed!')
+            await ctx.respond('Warn has been removed!')
             embed = discord.Embed(
                 title=f'Your warn in {ctx.guild.name}  been removed', description=f'Your warning was removed by {ctx.author}')
             await member.send(embed=embed)
 
-    @cog_ext.cog_slash(name="warns", description="Get a user's warnings.")
+    @commands.slash_command(guild_ids=[guild_id])
     @commands.has_permissions(manage_messages=True)
-    async def _warns(self, ctx, member: discord.Member):
+    async def warns(self, ctx, member: discord.Member):
         with open('warnings.json', 'r') as f:
             warns = json.load(f)
 
@@ -153,18 +155,37 @@ class Moderation(commands.Cog):
         for warn in warns[str(ctx.guild.id)][str(member.id)]["warnings"]:
             warnings.add_field(name=f"Warn {num}", value=warn)
             num += 1
-        await ctx.send(embed=warnings)
+        await ctx.respond(embed=warnings)
 
-    @cog_ext.cog_slash(name="setstatus", description="Set the bot's status!", default_permission=False, permissions={
-    guild_id: [
-        discord_slash.utils.manage_commands.create_permission(admin_role, discord_slash.utils.manage_commands.SlashCommandPermissionType.ROLE, True)
-    ]
-})
-    async def _setstatus(self, ctx, *, status):
+    @commands.slash_command(name="setstatus", description="Set the bot's status!")
+    async def setstatus(self, ctx, *, status):
         await self.bot.change_presence(activity = discord.Game(name=status))
         em = discord.Embed(title=f'Status set to {status}')
-        await ctx.send(embed=em)
+        await ctx.respond(embed=em)
 
+    @commands.slash_command(guild_ids=[guild_id])
+    async def timeout(self, ctx, user: discord.Member, duration: int):
+        def convert(time):
+            pos = ["s","m","h","d"]
+
+            time_dict = {"s" : 1, "m" : 60, "h" : 3600 , "d" : 3600*24}
+
+            unit = time[-1]
+
+            if unit not in pos:
+                return -1
+            try:
+                val = int(time[:-1])
+            except:
+                return -2
+
+
+            return val * time_dict[unit]
+
+        converted = convert(duration)
+        until = discord.utils.utcnow() + datetime.timedelta(seconds=converted)
+        await user.timeout(until)
+        await ctx.respond(f"The user has been timed out for {duration}.")
 
 def setup(client):
     client.add_cog(Moderation(client))
