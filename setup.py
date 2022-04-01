@@ -17,6 +17,7 @@ def variables(*, copy=True):
         if devmode.lower() == "y":
             print(Fore.GREEN + "Enabled developer mode!\n")
             pastebin_key = input(Fore.GREEN + "Please enter your Paste bin API Key.\nSteps: Go to https://pastebin.com/doc_api#1 and copy your API Key from there(You must have an account to see the API Key)\n"+ Fore.BLUE)
+            urban_api_key = input(Fore.GREEN + "Please enter your Urban API Key.\nSteps: Go to https://rapidapi.com/community/api/urban-dictionary, sign up or login and you will have a API Key!\n" + Fore.BLUE)
             print("\n\n")
             print("Confirm with these values.")
             time.sleep(2)
@@ -25,7 +26,8 @@ def variables(*, copy=True):
             print(f"{Fore.GREEN}Admin Role ID: {Fore.BLUE}{admin}")
             print(f"{Fore.GREEN}Guild ID: {Fore.BLUE}{guild}")
             print(f"{Fore.GREEN}Log Channel ID: {Fore.BLUE}{log_channel}")
-            print(f"{Fore.GREEN}Paste bin KEY: {Fore.BLUE}{pastebin_key}")
+            print(f"{Fore.GREEN}Paste bin Key: {Fore.BLUE}{pastebin_key}")
+            print(f"{Fore.GREEN}Urban API Key: {Fore.BLUE}{urban_api_key}")
             info_recheck = input("Is that information correct? [Y/N]\n")
             if info_recheck == "Y" or info_recheck == "y":
                 print("Please wait while the bot is being setup.")
@@ -36,6 +38,7 @@ def variables(*, copy=True):
                     env.write(f"GUILD_ID={guild}" + "\n")
                     env.write(f"LOG_CHANNEL={log_channel}\n")
                     env.write(f"PASTEBIN_API_KEY={pastebin_key}\n")
+                    env.write(f"URBAN_API_KEY={urban_api_key}")
                     env.write("DEV_MODE=YES")
                     print("Setup complete.")
                     time.sleep(5)
@@ -87,6 +90,7 @@ def variables(*, copy=True):
         if devmode.lower() == "y":
             print(Fore.GREEN + "Enabled developer mode!\n")
             pastebin_key = input(Fore.GREEN + "Please enter your Paste bin API Key.\nSteps: Go to https://pastebin.com/doc_api#1 and copy your API Key from there(You must have an account to see the API Key)\n"+ Fore.BLUE)
+            urban_api_key = input(Fore.GREEN + "Please enter your Urban API Key.\nSteps: Go to https://rapidapi.com/community/api/urban-dictionary, sign up or login and you will have a API Key!\n" + Fore.BLUE)
             print("\n\n")
             print("Confirm with these values.")
             time.sleep(2)
@@ -96,6 +100,7 @@ def variables(*, copy=True):
             print(f"{Fore.GREEN}Guild ID: {Fore.BLUE}{guild}")
             print(f"{Fore.GREEN}Log Channel ID: {Fore.BLUE}{log_channel}")
             print(f"{Fore.GREEN}Paste bin KEY: {Fore.BLUE}{pastebin_key}")
+            print(f"{Fore.GREEN}Urban API Key: {Fore.BLUE}{urban_api_key}")
             info_recheck = input("Is that information correct? [Y/N]\n")
             if info_recheck == "Y" or info_recheck == "y":
                 print("Please wait while the bot is being setup.")
@@ -106,6 +111,7 @@ def variables(*, copy=True):
                     env.write(f"GUILD_ID={guild}" + "\n")
                     env.write(f"LOG_CHANNEL={log_channel}\n")
                     env.write(f"PASTEBIN_API_KEY={pastebin_key}\n")
+                    env.write(f"URBAN_API_KEY={urban_api_key}")
                     env.write("DEV_MODE=YES")
                     print("Setup complete.")
                     time.sleep(5)
