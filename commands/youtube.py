@@ -1,5 +1,4 @@
-import re, os, discord
-import urllib.request
+import os, discord
 from discord.ext import commands
 from discord.commands import \
     slash_command
@@ -18,6 +17,7 @@ class Youtube(commands.Cog):
         await ctx.defer()
         first_result = await search_youtube(query)
         await ctx.respond(first_result)
+
 
 def setup(client):
     client.add_cog(Youtube(client))
