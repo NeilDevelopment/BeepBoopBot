@@ -68,6 +68,7 @@ for filename in os.listdir('./commands'):
     if filename.endswith(".py"):
         client.load_extension(f'commands.{filename[:-3]}')
         print(Fore.BLUE + "[INFO] " + Fore.MAGENTA + "(COMMANDS) " + Fore.WHITE + f"Loaded \"{filename[:-3]}\" command")
+        
 
 for filename in os.listdir('./events'):
     if filename.endswith(".py"):
@@ -84,7 +85,7 @@ else:
 
 @client.event
 async def on_application_command_error(ctx, error):
-    if isinstance(error,commands.CheckFailure):
+    if isinstance(error, commands.CheckFailure):
         em = discord.Embed(title="No permission :x:", description="You don't have enough permission(s) to execute that command!", color=discord.Color.red())
         await ctx.respond(embed=em)
 

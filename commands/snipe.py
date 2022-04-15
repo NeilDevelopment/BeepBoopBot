@@ -14,6 +14,8 @@ class Snipe(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
+        if message.author.bot == True:
+            return
         ch_id = message.channel.id
 
         if not message.author.bot:
@@ -30,6 +32,8 @@ class Snipe(commands.Cog):
     async def on_message_edit(
         self, before: discord.Message, after: discord.Message
     ):
+        if before.author.bot == True:
+            return
         ch_id = before.channel.id
 
         if not before.author.bot:
