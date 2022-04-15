@@ -1,5 +1,4 @@
 """Loader"""
-from click import command
 from colorama import Fore, Style
 import pyfiglet, time, platform, subprocess, sys
 
