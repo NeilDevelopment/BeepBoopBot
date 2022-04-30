@@ -229,9 +229,16 @@ def dependencies(*, install):
         else:
             pass
 
+def run():
+    if operatingsystem != "Windows":
+        os.system("python3 bot.py")
+    else:
+        os.system("python bot.py")
+
 def all():
     variables()
-
+    dependencies()
+    run()
 
 if __name__ == "__main__":
     all()

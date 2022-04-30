@@ -5,6 +5,7 @@ import pyfiglet, time, platform, subprocess, sys
 ascii_text = pyfiglet.figlet_format("BeepBoopBot V2")
 print(Fore.CYAN + ascii_text)
 time.sleep(3)
+
 """Dependencie checker"""
 operatingsystem = platform.system()
 
@@ -47,6 +48,8 @@ if "DateTime" not in installed_packages:
 else:
     pass
 print(Fore.BLUE + "[INFO] " + Fore.CYAN + "Connecting to Discord API...")
+
+"""Discord bot"""
 import discord, os
 from discord.commands import \
     slash_command
