@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.commands import \
     slash_command, Option
 
-class guild_channel_create(commands.Cog):
+class guild_role_delete(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -12,7 +12,12 @@ class guild_channel_create(commands.Cog):
     log_channel = os.getenv("LOG_CHANNEL")
 
     @commands.Cog.listener()
-
+    async def on_guild_role_delete(self, role):
+        e = discord.Embed(title=f":wastebasket: Role deleted: {role.name}", color=discord.Color.green(), timestamp=datetime.datetime.utcnow())
+        e.add_field(name="Color", value=f"{role.color}")
+        e.set_footer(text=f"ID: {role.id}")
+        channel = self.client.get_channel(int(self.log_channel))
+        await channel.send(embed=e)
 
 def setup(client):
-    client.add_cog(guild_channel_create(client))
+    client.add_cog(guild_role_delete(client))

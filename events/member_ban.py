@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.commands import \
     slash_command, Option
 
-class guild_channel_create(commands.Cog):
+class member_ban(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -19,4 +19,4 @@ class guild_channel_create(commands.Cog):
         await channel.send(embed=e)
 
 def setup(client):
-    client.add_cog(guild_channel_create(client))
+    client.add_cog(member_ban(client))

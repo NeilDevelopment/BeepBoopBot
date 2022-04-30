@@ -6,7 +6,7 @@ from data import Data
 from utils import str_time_to_timedelta
 import uuid
 
-class avatar(commands.Cog):
+class reminders(commands.Cog):
 
     reminders_loaded = False
     def __init__(self, client):
@@ -119,4 +119,4 @@ class avatar(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(avatar(client))
+    client.add_cog(reminders(client))

@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.commands import \
     slash_command, Option
 
-class guild_channel_create(commands.Cog):
+class guild_channel_update(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -16,8 +16,8 @@ class guild_channel_create(commands.Cog):
         if before.name != after.name:
             e = discord.Embed(title=f":pencil: Text channel updated: {before.name}", color=discord.Color.orange(), timestamp=datetime.datetime.utcnow())
             e.add_field(name="Renamed", value=f"{before.name} -> {after.name}")
-            channel = self.client.get_channel(959417909996830770)
+            channel = self.client.get_channel(int(self.log_channel))
             await channel.send(embed=e)
 
 def setup(client):
-    client.add_cog(guild_channel_create(client))
+    client.add_cog(guild_channel_update(client))

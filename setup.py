@@ -51,7 +51,7 @@ def variables(*, copy=True):
                     exit()
         else:
             os.chdir("developer")
-            os.remove("run.py")
+            os.remove("urban.py")
             os.chdir("..")
             print("\n\n")
             print("Confirm with these values.")
@@ -124,7 +124,7 @@ def variables(*, copy=True):
                     exit()
         else:
             os.chdir("developer")
-            os.remove("run.py")
+            os.remove("urban.py")
             os.chdir("..")
             print("\n\n")
             print("Confirm with these values.")
