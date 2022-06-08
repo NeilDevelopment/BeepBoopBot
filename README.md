@@ -1,9 +1,6 @@
 # BeepBoopBot
  This bot will help you manage your server efficiently. This is a self-hosted bot, we do not host it.
 
-## DISCONTINUED
-BeepBoopBot is discontinued. Try using our new bot: https://github.com/NeilDevelopment/Edith/
-
 # Links
 * **[Setting up the bot](https://github.com/NeilDevolopment/UltimateCoreBot/wiki/Setup)**
 * **[Configuration](https://github.com/NeilDevolopment/UltimateCoreBot/wiki/Configuration)**
