@@ -13,10 +13,10 @@ reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
 if 'py-cord' not in installed_packages:
     if operatingsystem != "Windows:":
-        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip install py-cord==2.0.0b1\n" + Fore.BLUE + "Please make sure to have the " + Fore.GREEN + "\"==2.0.0\"" + Fore.BLUE + " or it won't work!") 
+        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip install py-cord") 
         exit()
     else:
-        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip3 install py-cord==2.0.0b1") 
+        print(Fore.RED + "Module \"py-cord\" is missing! Install it by doing pip3 install py-cord") 
         exit()
 else:
     pass
