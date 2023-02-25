@@ -237,7 +237,7 @@ def run():
 
 def all():
     variables()
-    dependencies()
+    dependencies(install=True)
     run()
 
 if __name__ == "__main__":
